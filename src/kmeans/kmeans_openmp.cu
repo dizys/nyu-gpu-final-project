@@ -1,7 +1,7 @@
 #include <iostream>
 #include <omp.h>
 
-#define N 1000000000000
+#define N 10000000000
 
 int main() {
     double *A1, *B1;
