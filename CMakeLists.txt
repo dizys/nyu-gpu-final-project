@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.17)
-project(nyu_gpu_final_project)
+project(nyu_gpu_final_project CUDA)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CUDA_STANDARD 17)
 
 add_executable(kmeans_cuda src/kmeans/kmeans_cuda.cu)
 add_executable(kmeans_openmp src/kmeans/kmeans_openmp.cpp)
