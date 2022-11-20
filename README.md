@@ -11,3 +11,9 @@ module load cmake-3
 module load gcc-11.2
 module load cuda-11.4
 ```
+
+### Build
+
+```bash
+cmake -B cmake-build-release -DCMAKE_BUILD_TYPE=Release
+```
