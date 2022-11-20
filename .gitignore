@@ -1,0 +1,16 @@
+# junk
+.DS_Store
+.bak
+
+# debug
+*.log
+*.stackdump
+
+# cache
+CMakeCache.txt
+/CMakeFiles/
+
+# artifacts
+/Makefile
+/cmake-build-debug/
+/cmake-build-release/
