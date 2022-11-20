@@ -1,10 +1,12 @@
 #include <iostream>
 #include <omp.h>
 
-#define N 10000
+#define N 1000000
 
 int main() {
-    float A1[N], B1[N];
+    float *A1, *B1;
+    A1 = (float *) malloc(N * sizeof(float));
+    B1 = (float *) malloc(N * sizeof(float));
     for (int i = 0; i < N; i++) {
         A1[i] = 0;
         B1[i] = i;
@@ -25,7 +27,9 @@ int main() {
     }
     std::cout << "GPU Sum: " << sum1 << std::endl;
 
-    float A2[N], B2[N];
+    float *A2, *B2;
+    A2 = (float *) malloc(N * sizeof(float));
+    B2 = (float *) malloc(N * sizeof(float));
     for (int i = 0; i < N; i++) {
         A2[i] = 0;
         B2[i] = i;
@@ -41,6 +45,11 @@ int main() {
         sum2 += A2[i];
     }
     std::cout << "CPU Sum: " << sum2 << std::endl;
+
+    free(A1);
+    free(B1);
+    free(A2);
+    free(B2);
 
     return 0;
 }
