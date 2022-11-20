@@ -1,7 +1,7 @@
 #include <iostream>
 #include <omp.h>
 
-#define N 1000000
+#define N 10000
 
 int main() {
     float A1[N], B1[N];
