@@ -175,6 +175,7 @@ int main(int argc, char *argv[])
     bool *d_changed;
     cudaMalloc((void **)&d_changed, sizeof(bool));
     int iteration = 0;
+    std::cout << "stride: " << vector_stride << std::endl;
     while (iteration < 1000)
     {
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
