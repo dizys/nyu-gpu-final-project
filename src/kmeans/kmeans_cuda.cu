@@ -54,7 +54,7 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
 
     if (i == 0)
     {
-        *changed = false;
+        *changed = true;
 
         for (int i = 0; i < K; i++)
         {
