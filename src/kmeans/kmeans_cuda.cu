@@ -87,7 +87,7 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
         if (clusters[j] != min_centroid)
         {
             clusters[j] = min_centroid;
-            // d_changed = true;
+            d_changed = true;
         }
         atomicAdd(&cluster_sizes[min_centroid], 1);
     }
