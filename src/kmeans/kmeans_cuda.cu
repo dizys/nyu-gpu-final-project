@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
     unsigned *clusters = (unsigned *)malloc(vector_size * sizeof(unsigned));
     for (unsigned i = 0; i < vector_size; i++)
     {
-        clusters[i] = 0;
+        clusters[i] = 1;
     }
     pick_random_centroids(centroids, vectors, vector_size);
     for (int i = 0; i < K; i++)
