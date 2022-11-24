@@ -4,6 +4,8 @@ NVCC_BIN=nvcc
 
 .PHONY: clean
 
+all: kmeans_cuda kmeans_openmp
+
 kmeans_cuda: src/kmeans/kmeans_cuda.cu
 	$(NVCC_BIN) -o bin/kmeans_cuda src/kmeans/kmeans_cuda.cu
 
