@@ -87,7 +87,7 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
         if (clusters[j] != min_centroid)
         {
             clusters[j] = min_centroid;
-            d_changed = true;
+            // d_changed = true;
         }
         atomicAdd(&cluster_sizes[min_centroid], 1);
     }
@@ -124,7 +124,10 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
         {
             for (unsigned k = 0; k < DIM; k++)
             {
-                centroids[j * DIM + k] /= cluster_sizes[j];
+                if (cluster_sizes[j] > 0)
+                {
+                    centroids[j * DIM + k] /= cluster_sizes[j];
+                }
             }
         }
     }
