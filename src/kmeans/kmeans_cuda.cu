@@ -54,7 +54,7 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
 
     if (i == 0)
     {
-        *changed = true;
+        changed[0] = false;
 
         for (int i = 0; i < K; i++)
         {
@@ -85,7 +85,7 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
         if (clusters[j] != min_centroid)
         {
             clusters[j] = min_centroid;
-            *changed = true;
+            changed[0] = true;
         }
         atomicAdd(&cluster_sizes[min_centroid], 1);
     }
@@ -169,18 +169,18 @@ int main(int argc, char *argv[])
     cudaMemcpy(d_centroids, centroids, K * DIM * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(d_clusters, clusters, vector_size * sizeof(unsigned), cudaMemcpyHostToDevice);
 
-    bool changed = true;
+    bool *changed = new bool[1];
+    changed[0] = true;
     bool *d_changed;
     cudaMalloc((void **)&d_changed, sizeof(bool));
     int iteration = 0;
-    while (changed)
+    while (changed[0])
     {
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
         cudaDeviceSynchronize();
-        changed = true;
-        cudaMemcpy(&changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
+        cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
         iteration++;
-        std::cout << "iteration " << iteration << ": " << (changed ? "changed" : "converged") << std::endl;
+        std::cout << "iteration " << iteration << ": " << (changed[0] ? "changed" : "converged") << std::endl;
     }
 
     cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
