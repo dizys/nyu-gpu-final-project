@@ -2,6 +2,7 @@
 #include <fstream>
 
 #define K 10
+#define DIM 3
 
 double *parse_input(const std::string &filename, long unsigned &vector_size)
 {
@@ -18,8 +19,8 @@ double *parse_input(const std::string &filename, long unsigned &vector_size)
         exit(1);
     }
 
-    double *vector = new double[vector_size];
-    for (long unsigned i = 0; i < vector_size; i++)
+    double *vector = new double[vector_size * DIM];
+    for (long unsigned i = 0; i < vector_size * DIM; i++)
     {
         if (!(input >> vector[i]))
         {
@@ -42,6 +43,7 @@ int main(int argc, char *argv[])
     std::string filename = argv[1];
     long unsigned vector_size = 0;
     double *vector = parse_input(filename, vector_size);
+
     std::cout << "hello world: " << vector_size << std::endl;
     delete (vector);
     return 0;
