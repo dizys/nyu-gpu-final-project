@@ -48,15 +48,13 @@ void pick_random_centroids(float *centroids, float *vector, long unsigned vector
 }
 
 // kernel: reassigns each vector to the closest centroid + computes the new centroids
-__device__ bool d_changed;
-
-__global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes)
+__global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes, bool *changed)
 {
     unsigned i = blockIdx.x * blockDim.x + threadIdx.x;
 
     if (i == 0)
     {
-        d_changed = false;
+        changed = false;
 
         for (int i = 0; i < K; i++)
         {
@@ -87,7 +85,7 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
         if (clusters[j] != min_centroid)
         {
             clusters[j] = min_centroid;
-            d_changed = true;
+            changed = true;
         }
         atomicAdd(&cluster_sizes[min_centroid], 1);
     }
@@ -166,13 +164,15 @@ int main(int argc, char *argv[])
     cudaMemcpy(d_vectors, vectors, vector_size * DIM * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(d_centroids, centroids, K * DIM * sizeof(float), cudaMemcpyHostToDevice);
 
-    typeof(d_changed) changed = true;
+    bool changed = true;
+    bool *d_changed;
+    cudaMalloc((void **)&d_changed, sizeof(bool));
     int iteration = 0;
     while (changed)
     {
-        kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes);
+        kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
         changed = false;
-        cudaMemcpyFromSymbol(&changed, "d_changed", sizeof(changed), 0, cudaMemcpyDeviceToHost);
+        cudaMemcpyFromSymbol(&changed, d_changed, sizeof(bool), 0, cudaMemcpyDeviceToHost);
         iteration++;
         std::cout << "iteration " << iteration << ": " << (changed ? "changed" : "converged") << std::endl;
     }
