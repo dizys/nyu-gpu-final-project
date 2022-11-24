@@ -68,7 +68,7 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
     for (unsigned j = i * vector_stride; j < (i + 1) * vector_stride && j < vector_size; j++)
     {
         float min_dist = FLT_MAX;
-        unsigned min_centroid = 1;
+        unsigned min_centroid = 0;
         for (unsigned k = 0; k < K; k++)
         {
             float dist = 0;
@@ -189,6 +189,7 @@ int main(int argc, char *argv[])
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
         cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
         cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
+        cudaMemcpy(centroids, d_centroids, K * DIM * sizeof(float), cudaMemcpyDeviceToHost);
         iteration++;
         std::cout << "iteration " << iteration << ": " << (changed[0] ? "changed" : "converged") << std::endl;
         for (unsigned i = 0; i < K; i++)
@@ -203,6 +204,15 @@ int main(int argc, char *argv[])
                 }
             }
             std::cout << size << std::endl;
+        }
+        std::cout << "centroids: " << std::endl;
+        for (int i = 0; i < K; i++)
+        {
+            for (int j = 0; j < DIM; j++)
+            {
+                std::cout << centroids[i * DIM + j] << " ";
+            }
+            std::cout << std::endl;
         }
     }
 
