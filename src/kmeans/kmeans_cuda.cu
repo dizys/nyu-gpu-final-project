@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
     {
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
         cudaDeviceSynchronize();
-        // changed = false;
+        changed = true;
         cudaMemcpy(&changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
         iteration++;
         std::cout << "iteration " << iteration << ": " << (changed ? "changed" : "converged") << std::endl;
