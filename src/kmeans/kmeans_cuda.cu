@@ -150,16 +150,6 @@ int main(int argc, char *argv[])
     }
     pick_random_centroids(centroids, vectors, vector_size);
 
-    for (int i = 0; i < K; i++)
-    {
-        std::cout << "centroid " << i << ": ";
-        for (int j = 0; j < DIM; j++)
-        {
-            std::cout << centroids[i * DIM + j] << " ";
-        }
-        std::cout << std::endl;
-    }
-
     struct timespec start_time, end_time;
 
     clock_gettime(CLOCK_REALTIME, &start_time);
@@ -186,7 +176,7 @@ int main(int argc, char *argv[])
     cudaMalloc((void **)&d_changed, sizeof(bool));
     int iteration = 0;
     std::cout << "stride: " << vector_stride << std::endl;
-    while (changed && iteration < 100)
+    while (changed[0] && iteration < 100)
     {
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
         cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
