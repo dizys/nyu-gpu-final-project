@@ -42,9 +42,13 @@ float *parse_input(const std::string &filename, long unsigned &vector_size)
 
 void pick_random_centroids(float *centroids, float *vector, long unsigned vector_size)
 {
-    for (int i = 0; i < K * DIM; i++)
+    for (int i = 0; i < K; i++)
     {
-        centroids[i] = vector[rand() % vector_size * DIM + i % DIM];
+        int centroid_index = rand() % vector_size;
+        for (int j = 0; j < DIM; j++)
+        {
+            centroids[i * DIM + j] = vector[centroid_index * DIM + j];
+        }
     }
 }
 
