@@ -164,10 +164,13 @@ int main(int argc, char *argv[])
     cudaMemcpy(d_centroids, centroids, K * DIM * sizeof(float), cudaMemcpyHostToDevice);
 
     bool changed = true;
+    int iteration = 0;
     while (changed)
     {
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes);
         cudaMemcpy(&changed, &d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
+        iteration++;
+        std::cout << "iteration " << iteration << ": " << (changed ? "changed" : "converged") << std::endl;
     }
 
     cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
