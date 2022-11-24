@@ -131,14 +131,6 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
     }
 }
 
-void reset_clusters(unsigned *clusters, unsigned vector_size)
-{
-    for (unsigned i = 0; i < vector_size; i++)
-    {
-        clusters[i] = 0;
-    }
-}
-
 int main(int argc, char *argv[])
 {
     if (argc != 2)
@@ -151,7 +143,10 @@ int main(int argc, char *argv[])
     float *vectors = parse_input(filename, vector_size);
     float *centroids = new float[K * DIM];
     unsigned *clusters = new unsigned[vector_size];
-    reset_clusters(clusters, vector_size);
+    for (unsigned i = 0; i < vector_size; i++)
+    {
+        clusters[i] = 0;
+    }
     pick_random_centroids(centroids, vectors, vector_size);
 
     struct timespec start_time, end_time;
