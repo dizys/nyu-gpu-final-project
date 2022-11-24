@@ -172,7 +172,7 @@ int main(int argc, char *argv[])
     {
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes);
         changed = false;
-        cudaMemcpyFromSymbol(&changed, "d_changed", sizeof(changed), 0, cudaMemcpyDeviceToHost);
+        cudaMemcpyFromSymbol(&changed, d_changed, sizeof(changed), 0, cudaMemcpyDeviceToHost);
         iteration++;
         std::cout << "iteration " << iteration << ": " << (changed ? "changed" : "converged") << std::endl;
     }
