@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cfloat>
 #include <time.h>
 #include <cuda.h>
 
@@ -47,12 +48,16 @@ void pick_random_centroids(float *centroids, float *vector, long unsigned vector
 }
 
 // kernel: reassigns each vector to the closest centroid + computes the new centroids
-__global__ bool kernel(unsigned vector_size, unsigned vector_stride, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes)
+__device__ bool d_changed;
+
+__global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes)
 {
-    bool changed = false;
+    unsigned i = blockIdx.x * blockDim.x + threadIdx.x;
 
     if (i == 0)
     {
+        d_changed = false;
+
         for (int i = 0; i < K; i++)
         {
             cluster_sizes[i] = 0;
@@ -61,9 +66,7 @@ __global__ bool kernel(unsigned vector_size, unsigned vector_stride, float *vect
 
     __syncthreads();
 
-    unsigned i = blockIdx.x * blockDim.x + threadIdx.x;
-
-    for (unsigned j = i * vector_stride; j < (i + 1) * stride && j < vector_size; j++)
+    for (unsigned j = i * vector_stride; j < (i + 1) * vector_stride && j < vector_size; j++)
     {
         float min_dist = FLT_MAX;
         unsigned min_centroid = 0;
@@ -84,7 +87,7 @@ __global__ bool kernel(unsigned vector_size, unsigned vector_stride, float *vect
         if (clusters[j] != min_centroid)
         {
             clusters[j] = min_centroid;
-            changed = true;
+            d_changed = true;
         }
         atomicAdd(&cluster_sizes[min_centroid], 1);
     }
@@ -104,7 +107,7 @@ __global__ bool kernel(unsigned vector_size, unsigned vector_stride, float *vect
 
     __syncthreads();
 
-    for (unsigned j = i * vector_stride; j < (i + 1) * stride && j < vector_size; j++)
+    for (unsigned j = i * vector_stride; j < (i + 1) * vector_stride && j < vector_size; j++)
     {
         unsigned cluster = clusters[j];
         for (unsigned k = 0; k < DIM; k++)
@@ -125,8 +128,6 @@ __global__ bool kernel(unsigned vector_size, unsigned vector_stride, float *vect
             }
         }
     }
-
-    return changed;
 }
 
 int main(int argc, char *argv[])
@@ -165,7 +166,8 @@ int main(int argc, char *argv[])
     bool changed = true;
     while (changed)
     {
-        changed = kernel_clustering<<<grid_size, block_size>>>(vector_size, d_vectors, d_centroids, d_clusters, d_cluster_sizes);
+        kernel<<<grid_size, block_size>>>(vector_size, d_vectors, d_centroids, d_clusters, d_cluster_sizes);
+        cudaMemcpy(&changed, &d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
     }
 
     cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
@@ -177,7 +179,7 @@ int main(int argc, char *argv[])
 
     clock_gettime(CLOCK_REALTIME, &end_time);
 
-    printf("Total time taken by the GPU part = %lf\n", (double)(end.tv_sec - start.tv_sec) + (double)(end.tv_nsec - start.tv_nsec) / 1000000000);
+    printf("Total time taken by the GPU part = %lf\n", (double)(end_time.tv_sec - start_time.tv_sec) + (double)(end_time.tv_nsec - start_time.tv_nsec) / 1000000000);
 
     delete[] vectors;
     delete[] centroids;
