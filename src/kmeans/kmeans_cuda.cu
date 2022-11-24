@@ -166,7 +166,7 @@ int main(int argc, char *argv[])
     bool changed = true;
     while (changed)
     {
-        kernel<<<grid_size, block_size>>>(vector_size, d_vectors, d_centroids, d_clusters, d_cluster_sizes);
+        kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes);
         cudaMemcpy(&changed, &d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
     }
 
