@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cfloat>
+#include <cstdlib>
 #include <time.h>
 #include <cuda.h>
 
@@ -25,7 +26,7 @@ float *parse_input(const std::string &filename, long unsigned &vector_size)
         exit(1);
     }
 
-    float *vector = new float[vector_size * DIM];
+    float *vector = (float *)malloc(vector_size * DIM * sizeof(float));
     for (long unsigned i = 0; i < vector_size * DIM; i++)
     {
         if (!(input >> vector[i]))
@@ -141,8 +142,8 @@ int main(int argc, char *argv[])
     std::string filename = argv[1];
     long unsigned vector_size = 0;
     float *vectors = parse_input(filename, vector_size);
-    float *centroids = new float[K * DIM];
-    unsigned *clusters = new unsigned[vector_size];
+    float *centroids = (float *)malloc(K * DIM * sizeof(float));
+    unsigned *clusters = (unsigned *)malloc(vector_size * sizeof(unsigned));
     for (unsigned i = 0; i < vector_size; i++)
     {
         clusters[i] = 0;
@@ -169,7 +170,7 @@ int main(int argc, char *argv[])
     cudaMemcpy(d_centroids, centroids, K * DIM * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(d_clusters, clusters, vector_size * sizeof(unsigned), cudaMemcpyHostToDevice);
 
-    bool *changed = new bool[1];
+    bool *changed = (bool *)malloc(sizeof(bool));
     changed[0] = true;
     bool *d_changed;
     cudaMalloc((void **)&d_changed, sizeof(bool));
@@ -177,7 +178,6 @@ int main(int argc, char *argv[])
     while (changed[0])
     {
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
-        cudaDeviceSynchronize();
         cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
         iteration++;
         std::cout << "iteration " << iteration << ": " << (changed[0] ? "changed" : "converged") << std::endl;
@@ -189,13 +189,16 @@ int main(int argc, char *argv[])
     cudaFree(d_centroids);
     cudaFree(d_clusters);
     cudaFree(d_cluster_sizes);
+    cudaFree(d_changed);
 
     clock_gettime(CLOCK_REALTIME, &end_time);
 
     printf("Total time taken by the GPU part = %lf\n", (double)(end_time.tv_sec - start_time.tv_sec) + (double)(end_time.tv_nsec - start_time.tv_nsec) / 1000000000);
 
-    delete[] vectors;
-    delete[] centroids;
+    free(changed);
+    free(vectors);
+    free(centroids);
+    free(clusters);
 
     return 0;
 }
