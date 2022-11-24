@@ -150,6 +150,16 @@ int main(int argc, char *argv[])
     }
     pick_random_centroids(centroids, vectors, vector_size);
 
+    for (int i = 0; i < K; i++)
+    {
+        std::cout << "centroid " << i << ": ";
+        for (int j = 0; j < DIM; j++)
+        {
+            std::cout << centroids[i * DIM + j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
     struct timespec start_time, end_time;
 
     clock_gettime(CLOCK_REALTIME, &start_time);
