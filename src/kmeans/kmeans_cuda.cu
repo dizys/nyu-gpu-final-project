@@ -6,7 +6,7 @@
 double *parse_input(const std::string &filename, long unsigned &vector_size)
 {
     std::ifstream input;
-    input.open(filename);
+    input.open(filename.c_str());
     if (!input.is_open())
     {
         std::cout << "Error: cannot open file at \"" << filename << "\"" << std::endl;
