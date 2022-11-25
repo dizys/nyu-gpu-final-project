@@ -58,6 +58,8 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
 {
     unsigned i = blockIdx.x * blockDim.x + threadIdx.x;
 
+    printf("printing from kernel\n");
+
     if (i == 0)
     {
         changed[0] = false;
@@ -66,8 +68,6 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
         {
             cluster_sizes[i] = 0;
         }
-
-        printf("printing from kernel\n");
     }
 
     __syncthreads();
