@@ -21,13 +21,13 @@ mkdir -p /tmp/$(whoami)
 wget -O /tmp/$(whoami)/gcc.zip <PLACEHOLDER_URL> && unzip /tmp/$(whoami)/gcc.zip -d /tmp/$(whoami) && rm -f /tmp/$(whoami)/gcc.zip
 ```
 
-**Or alternatively, you can build GCC from source with OpenMP GPU-offload support**
-
-```bash
-wget -O install.sh https://gist.githubusercontent.com/dizys/8dedbe94439b91d759b6c1e6e316d542/raw/3ddbd8def8cc5bc7ce42549317820df16daf9e96/build_gcc_with_offload.sh && sh install.sh && rm -f install.sh
-```
-
-This will build GCC 11 from source and take roughly 30 minutes. GCC will be installed to `/tmp/<NET_ID>/gcc` temporarily.
+> **Or alternatively, you can build GCC from source with OpenMP GPU-offload support**
+>
+> ```bash
+> wget -O install.sh https://gist.githubusercontent.com/dizys/8dedbe94439b91d759b6c1e6e316d542/raw/3ddbd8def8cc5bc7ce42549317820df16daf9e96/build_gcc_with_offload.sh && sh install.sh && rm -f install.sh
+> ```
+>
+> This will build GCC 11 from source and take roughly 30 minutes. GCC will be installed to `/tmp/<NET_ID>/gcc` temporarily.
 
 ### Build
 
