@@ -12,6 +12,20 @@
 #define K 10
 #define DIM 3
 
+#define gpuErrchk(ans)                        \
+    {                                         \
+        gpuAssert((ans), __FILE__, __LINE__); \
+    }
+inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort = true)
+{
+    if (code != cudaSuccess)
+    {
+        fprintf(stderr, "GPUassert: %s %s %d\n", cudaGetErrorString(code), file, line);
+        if (abort)
+            exit(code);
+    }
+}
+
 float *parse_input(const std::string &filename, long unsigned &vector_size)
 {
     std::ifstream input;
@@ -197,7 +211,8 @@ int main(int argc, char *argv[])
     {
         cudaMemcpy(d_changed, changed, sizeof(bool), cudaMemcpyHostToDevice);
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
-        cudaDeviceSynchronize();
+        gpuErrchk(cudaPeekAtLastError());
+        gpuErrchk(cudaDeviceSynchronize());
         cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
         cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
         cudaMemcpy(centroids, d_centroids, K * DIM * sizeof(float), cudaMemcpyDeviceToHost);
