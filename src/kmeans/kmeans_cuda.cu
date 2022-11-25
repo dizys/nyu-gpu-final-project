@@ -67,7 +67,7 @@ void pick_random_centroids(float *centroids, float *vector, long unsigned vector
     }
 }
 
-// kernel: reassigns each vector to the closest centroid + computes the new centroids
+// kernel: reassigns each vector to the closest centroid
 __global__ void kernel_cluster(unsigned vector_size, unsigned vector_stride, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes, bool *changed)
 {
     unsigned i = blockIdx.x * blockDim.x + threadIdx.x;
