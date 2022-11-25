@@ -60,7 +60,7 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
 
     if (i == 0)
     {
-        changed[0] = true;
+        changed[0] = false;
 
         printf("printing from kernel\n");
 
