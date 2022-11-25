@@ -67,9 +67,7 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
             cluster_sizes[i] = 0;
         }
 
-#if __CUDA_ARCH__ >= 200
         printf("printing from kernel\n");
-#endif
     }
 
     __syncthreads();
