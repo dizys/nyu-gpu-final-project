@@ -68,7 +68,7 @@ void pick_random_centroids(float *centroids, float *vector, long unsigned vector
 }
 
 // kernel: reassigns each vector to the closest centroid + computes the new centroids
-__global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes, bool *changed)
+__global__ void kernel_cluster(unsigned vector_size, unsigned vector_stride, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes, bool *changed)
 {
     unsigned i = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -109,11 +109,14 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
             changed[0] = true;
         }
 
-        printf("min_centroid: %d\n", min_centroid);
         atomicAdd(&cluster_sizes[min_centroid], 1);
     }
+}
 
-    __syncthreads();
+// kernel: computes the new centroids
+__global__ void kernel_compute_centroids(unsigned vector_size, unsigned vector_stride, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes)
+{
+    unsigned i = blockIdx.x * blockDim.x + threadIdx.x;
 
     if (i == 0)
     {
@@ -210,7 +213,10 @@ int main(int argc, char *argv[])
     while (changed[0])
     {
         cudaMemcpy(d_changed, changed, sizeof(bool), cudaMemcpyHostToDevice);
-        kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
+        kernel_cluster<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
+        gpuErrchk(cudaPeekAtLastError());
+        gpuErrchk(cudaDeviceSynchronize());
+        kernel_compute_centroids<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
         gpuErrchk(cudaPeekAtLastError());
         gpuErrchk(cudaDeviceSynchronize());
         cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
