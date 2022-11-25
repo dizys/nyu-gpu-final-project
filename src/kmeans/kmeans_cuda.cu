@@ -212,7 +212,6 @@ int main(int argc, char *argv[])
     std::cout << "stride: " << vector_stride << std::endl;
     while (changed[0])
     {
-        cudaMemcpy(d_changed, changed, sizeof(bool), cudaMemcpyHostToDevice);
         kernel_cluster<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
         gpuErrchk(cudaPeekAtLastError());
         gpuErrchk(cudaDeviceSynchronize());
@@ -220,32 +219,8 @@ int main(int argc, char *argv[])
         gpuErrchk(cudaPeekAtLastError());
         gpuErrchk(cudaDeviceSynchronize());
         cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
-        cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
-        cudaMemcpy(centroids, d_centroids, K * DIM * sizeof(float), cudaMemcpyDeviceToHost);
         iteration++;
         std::cout << "iteration " << iteration << ": " << (changed[0] ? "changed" : "converged") << std::endl;
-        for (unsigned i = 0; i < K; i++)
-        {
-            std::cout << "cluster " << i << ": ";
-            unsigned size = 0;
-            for (unsigned j = 0; j < vector_size; j++)
-            {
-                if (clusters[j] == i)
-                {
-                    size++;
-                }
-            }
-            std::cout << size << std::endl;
-        }
-        std::cout << "centroids: " << std::endl;
-        for (int i = 0; i < K; i++)
-        {
-            for (int j = 0; j < DIM; j++)
-            {
-                std::cout << centroids[i * DIM + j] << " ";
-            }
-            std::cout << std::endl;
-        }
     }
 
     cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
