@@ -174,14 +174,6 @@ int main(int argc, char *argv[])
         clusters[i] = 0;
     }
     pick_random_centroids(centroids, vectors, vector_size);
-    for (int i = 0; i < K; i++)
-    {
-        for (int j = 0; j < DIM; j++)
-        {
-            std::cout << centroids[i * DIM + j] << " ";
-        }
-        std::cout << std::endl;
-    }
 
     struct timespec start_time, end_time;
 
