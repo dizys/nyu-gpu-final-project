@@ -24,6 +24,15 @@ This will build GCC 11 from source and install it to `/tmp/<NET_ID>/gcc` tempora
 
 ### Build
 
+Before compilation, environment variable `LD_LIBRARY_PATH` must be set to the path of the GCC installation.
+
 ```bash
-LD_LIBRARY_PATH=/tmp/$(whoami)/gcc/lib64:${LD_LIBRARY_PATH} make GPP_BIN=/tmp/$(whoami)/gcc/bin/g++
+export MY_GCC_PATH=/tmp/$(whoami)/gcc
+export LD_LIBRARY_PATH=$MY_GCC_PATH/lib64:${LD_LIBRARY_PATH}
+```
+
+Then, build the project:
+
+```bash
+make GPP_BIN=$MY_GCC_PATH/bin/g++
 ```
