@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <time.h>
 #include <cuda.h>
+#include <stdio.h>
 
 #define BLOCK_NUM 8
 #define BLOCK_SIZE 500
@@ -87,6 +88,9 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
                 min_centroid = k;
             }
         }
+#if __CUDA_ARCH__ >= 200
+        printf("cen: %d\n", min_centroid);
+#endif
         if (clusters[j] != min_centroid)
         {
             clusters[j] = min_centroid;
@@ -138,7 +142,6 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
 
 int main(int argc, char *argv[])
 {
-    std::cout << "__CUDA_ARCH__=" << __CUDA_ARCH__ << std::endl;
     if (argc != 2)
     {
         std::cout << "usage: " << argv[0] << " filename" << std::endl;
