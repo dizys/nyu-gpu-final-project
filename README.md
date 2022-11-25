@@ -11,7 +11,7 @@ We experimented on `cuda5.cims.nyu.edu`.
 1. Load the CUDA module:
 
 ```bash
-module load cuda
+module load cuda-10.1
 ```
 
 2. Download GCC with OpenMP GPU-offloading support:
@@ -21,7 +21,7 @@ mkdir -p /tmp/$(whoami)
 wget -O /tmp/$(whoami)/gcc.zip https://github.com/nyu-multicore/cims-gpu/releases/download/gcc/gcc-11.3.1_cims_gpu_offload_22112501.zip && unzip /tmp/$(whoami)/gcc.zip -d /tmp/$(whoami) && rm -f /tmp/$(whoami)/gcc.zip
 ```
 
-> **Or alternatively, you can build GCC from source with OpenMP GPU-offload support**
+> **Or for step 2, alternatively, you can build GCC from source with OpenMP GPU-offload support**
 >
 > ```bash
 > wget -O build_gcc.sh https://gist.githubusercontent.com/dizys/8dedbe94439b91d759b6c1e6e316d542/raw/3ddbd8def8cc5bc7ce42549317820df16daf9e96/build_gcc_with_offload.sh && sh build_gcc.sh && rm -f build_gcc.sh
