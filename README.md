@@ -18,7 +18,7 @@ module load cuda
 
 ```bash
 mkdir -p /tmp/$(whoami)
-wget -O /tmp/$(whoami)/gcc.zip <PLACEHOLDER_URL> && unzip /tmp/$(whoami)/gcc.zip -d /tmp/$(whoami) && rm -f /tmp/$(whoami)/gcc.zip
+wget -O /tmp/$(whoami)/gcc.zip https://github.com/nyu-multicore/cims-gpu/releases/download/gcc/gcc-11.3.1_cims_gpu_offload_22112501.zip && unzip /tmp/$(whoami)/gcc.zip -d /tmp/$(whoami) && rm -f /tmp/$(whoami)/gcc.zip
 ```
 
 > **Or alternatively, you can build GCC from source with OpenMP GPU-offload support**
