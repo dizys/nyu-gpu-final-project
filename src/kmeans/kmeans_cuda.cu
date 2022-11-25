@@ -209,7 +209,6 @@ int main(int argc, char *argv[])
     cudaMalloc((void **)&d_changed, sizeof(bool));
 
     int iteration = 0;
-    std::cout << "stride: " << vector_stride << std::endl;
     while (changed[0])
     {
         kernel_cluster<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
@@ -220,7 +219,7 @@ int main(int argc, char *argv[])
         gpuErrchk(cudaDeviceSynchronize());
         cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
         iteration++;
-        std::cout << "iteration " << iteration << ": " << (changed[0] ? "changed" : "converged") << std::endl;
+        std::cout << "Iteration #" << iteration << ": centroids " << (changed[0] ? "changed, continuing..." : "converged.") << std::endl;
     }
 
     cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
