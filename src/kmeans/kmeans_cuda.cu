@@ -207,7 +207,7 @@ int main(int argc, char *argv[])
 
     int iteration = 0;
     std::cout << "stride: " << vector_stride << std::endl;
-    while (changed[0] && iteration < 100)
+    while (changed[0] && iteration < 10000)
     {
         cudaMemcpy(d_changed, changed, sizeof(bool), cudaMemcpyHostToDevice);
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
