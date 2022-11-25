@@ -27,7 +27,7 @@ wget -O /tmp/$(whoami)/gcc.zip <PLACEHOLDER_URL> && unzip /tmp/$(whoami)/gcc.zip
 > wget -O build_gcc.sh https://gist.githubusercontent.com/dizys/8dedbe94439b91d759b6c1e6e316d542/raw/3ddbd8def8cc5bc7ce42549317820df16daf9e96/build_gcc_with_offload.sh && sh build_gcc.sh && rm -f build_gcc.sh
 > ```
 >
-> This will build GCC 11 from source and take roughly 30 minutes. GCC will be installed to `/tmp/<NET_ID>/gcc` temporarily.
+> This will take roughly 30 minutes to build GCC 11 from source. And GCC will be installed to `/tmp/<NET_ID>/gcc` temporarily.
 
 ### Build
 
