@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
         gpuErrchk(cudaDeviceSynchronize());
         cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
         iteration++;
-        std::cout << "Iteration #" << iteration << ": centroids " << (changed[0] ? "changed, continuing..." : "converged.") << std::endl;
+        std::cout << "Iteration #" << iteration << ": " << (changed[0] ? "centroids changed, continuing..." : "converged.") << std::endl;
     }
 
     cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
