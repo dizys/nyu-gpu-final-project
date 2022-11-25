@@ -70,74 +70,74 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
         }
     }
 
-    __syncthreads();
+    // __syncthreads();
 
-    for (unsigned j = i * vector_stride; j < (i + 1) * vector_stride && j < vector_size; j++)
-    {
-        float min_dist = FLT_MAX;
-        unsigned min_centroid = 0;
-        for (unsigned k = 0; k < K; k++)
-        {
-            float dist = 0;
-            for (unsigned l = 0; l < DIM; l++)
-            {
-                float diff = vectors[j * DIM + l] - centroids[k * DIM + l];
-                dist += diff * diff;
-            }
-            if (dist < min_dist)
-            {
-                min_dist = dist;
-                min_centroid = k;
-            }
-        }
+    // for (unsigned j = i * vector_stride; j < (i + 1) * vector_stride && j < vector_size; j++)
+    // {
+    //     float min_dist = FLT_MAX;
+    //     unsigned min_centroid = 0;
+    //     for (unsigned k = 0; k < K; k++)
+    //     {
+    //         float dist = 0;
+    //         for (unsigned l = 0; l < DIM; l++)
+    //         {
+    //             float diff = vectors[j * DIM + l] - centroids[k * DIM + l];
+    //             dist += diff * diff;
+    //         }
+    //         if (dist < min_dist)
+    //         {
+    //             min_dist = dist;
+    //             min_centroid = k;
+    //         }
+    //     }
 
-        if (clusters[j] != min_centroid)
-        {
-            clusters[j] = min_centroid;
-            changed[0] = true;
-        }
-        atomicAdd(&cluster_sizes[min_centroid], 1);
-    }
+    //     if (clusters[j] != min_centroid)
+    //     {
+    //         clusters[j] = min_centroid;
+    //         changed[0] = true;
+    //     }
+    //     atomicAdd(&cluster_sizes[min_centroid], 1);
+    // }
 
-    __syncthreads();
+    // __syncthreads();
 
-    if (i == 0)
-    {
-        for (unsigned j = 0; j < K; j++)
-        {
-            for (unsigned k = 0; k < DIM; k++)
-            {
-                centroids[j * DIM + k] = 0;
-            }
-        }
-    }
+    // if (i == 0)
+    // {
+    //     for (unsigned j = 0; j < K; j++)
+    //     {
+    //         for (unsigned k = 0; k < DIM; k++)
+    //         {
+    //             centroids[j * DIM + k] = 0;
+    //         }
+    //     }
+    // }
 
-    __syncthreads();
+    // __syncthreads();
 
-    for (unsigned j = i * vector_stride; j < (i + 1) * vector_stride && j < vector_size; j++)
-    {
-        unsigned cluster = clusters[j];
-        for (unsigned k = 0; k < DIM; k++)
-        {
-            atomicAdd(&centroids[cluster * DIM + k], vectors[j * DIM + k]);
-        }
-    }
+    // for (unsigned j = i * vector_stride; j < (i + 1) * vector_stride && j < vector_size; j++)
+    // {
+    //     unsigned cluster = clusters[j];
+    //     for (unsigned k = 0; k < DIM; k++)
+    //     {
+    //         atomicAdd(&centroids[cluster * DIM + k], vectors[j * DIM + k]);
+    //     }
+    // }
 
-    __syncthreads();
+    // __syncthreads();
 
-    if (i == 0)
-    {
-        for (unsigned j = 0; j < K; j++)
-        {
-            for (unsigned k = 0; k < DIM; k++)
-            {
-                if (cluster_sizes[j] > 0)
-                {
-                    centroids[j * DIM + k] /= cluster_sizes[j];
-                }
-            }
-        }
-    }
+    // if (i == 0)
+    // {
+    //     for (unsigned j = 0; j < K; j++)
+    //     {
+    //         for (unsigned k = 0; k < DIM; k++)
+    //         {
+    //             if (cluster_sizes[j] > 0)
+    //             {
+    //                 centroids[j * DIM + k] /= cluster_sizes[j];
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 int main(int argc, char *argv[])
