@@ -76,8 +76,6 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
     {
         changed[0] = false;
 
-        printf("printing from kernel\n");
-
         for (int i = 0; i < K; i++)
         {
             cluster_sizes[i] = 0;
@@ -110,6 +108,8 @@ __global__ void kernel(unsigned vector_size, unsigned vector_stride, float *vect
             clusters[j] = min_centroid;
             changed[0] = true;
         }
+
+        printf("min_centroid: %d\n", min_centroid);
         atomicAdd(&cluster_sizes[min_centroid], 1);
     }
 
@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
     unsigned *clusters = (unsigned *)malloc(vector_size * sizeof(unsigned));
     for (unsigned i = 0; i < vector_size; i++)
     {
-        clusters[i] = 1;
+        clusters[i] = 0;
     }
     pick_random_centroids(centroids, vectors, vector_size);
     for (int i = 0; i < K; i++)
