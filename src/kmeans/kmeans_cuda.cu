@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
     {
         cudaMemcpy(d_changed, changed, sizeof(bool), cudaMemcpyHostToDevice);
         kernel<<<grid_size, block_size>>>(vector_size, vector_stride, d_vectors, d_centroids, d_clusters, d_cluster_sizes, d_changed);
-        cudeDeviceSynchronize();
+        cudaDeviceSynchronize();
         cudaMemcpy(changed, d_changed, sizeof(bool), cudaMemcpyDeviceToHost);
         cudaMemcpy(clusters, d_clusters, vector_size * sizeof(unsigned), cudaMemcpyDeviceToHost);
         cudaMemcpy(centroids, d_centroids, K * DIM * sizeof(float), cudaMemcpyDeviceToHost);
