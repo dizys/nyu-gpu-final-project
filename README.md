@@ -25,5 +25,5 @@ This will build GCC 11 from source and install it to `/tmp/<NET_ID>/gcc` tempora
 ### Build
 
 ```bash
-make GPP_BIN=/tmp/$(whoami)/gcc/bin/g++
+LD_LIBRARY_PATH=/tmp/$(whoami)/gcc/lib64:${LD_LIBRARY_PATH} make GPP_BIN=/tmp/$(whoami)/gcc/bin/g++
 ```
