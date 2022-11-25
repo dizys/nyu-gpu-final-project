@@ -29,7 +29,7 @@ wget -O /tmp/$(whoami)/gcc.zip https://github.com/nyu-multicore/cims-gpu/release
 >
 > This will take roughly 30 minutes to build GCC 11 from source. And GCC will be installed to `/tmp/<NET_ID>/gcc` temporarily.
 
-### Build
+### Compile the programs
 
 Before compilation, environment variable `LD_LIBRARY_PATH` must be set to the path of the GCC installation.
 
