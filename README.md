@@ -4,7 +4,7 @@ Comparing CUDA to OpenMP on GPUs
 
 ## Getting Started
 
-### Setup the CIMS GPU machine
+### Setup CIMS GPU machines
 
 We experimented on `cuda5.cims.nyu.edu`.
 
