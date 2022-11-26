@@ -88,6 +88,7 @@ bool assign_clusters(unsigned vector_size, float *vectors, float *centroids, uns
                 if (clusters[i] != min_cluster)
                 {
                     changed = true;
+                    printf("Changed cluster of vector %d from %d to %d.\n", i, clusters[i], min_cluster);
                     clusters[i] = min_cluster;
                 }
                 cluster_sizes[min_cluster]++;
