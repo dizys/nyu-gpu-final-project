@@ -62,9 +62,9 @@ void pick_random_centroids(float *centroids, float *vector, long unsigned vector
             {
                 centroid_index--;
             }
-            if (picked_centers.find(index) == picked_centers.end())
+            if (picked_centers.find(centroid_index) == picked_centers.end())
             {
-                picked_centers.insert(index);
+                picked_centers.insert(centroid_index);
                 for (int j = 0; j < DIM; j++)
                 {
                     centroids[i * DIM + j] = vector[centroid_index * DIM + j];
