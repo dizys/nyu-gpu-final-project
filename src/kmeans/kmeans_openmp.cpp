@@ -165,6 +165,10 @@ int main(int argc, char *argv[])
     while (iteration < 10)
     {
         changed = assign_clusters(vector_size, vectors, centroids, clusters, cluster_sizes);
+        if (!changed)
+        {
+            printf("No changes in cluster assignment.\n");
+        }
         for (unsigned i = 0; i < K; i++)
         {
             std::cout << "Cluster " << i << " size: " << cluster_sizes[i] << std::endl;
