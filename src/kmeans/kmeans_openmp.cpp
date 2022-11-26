@@ -58,11 +58,12 @@ bool assign_clusters(unsigned vector_size, float *vectors, float *centroids, uns
     {
         cluster_sizes[i] = 0;
     }
-#pragma omp target map(tofrom                                                                                                   \
-                       : clusters [0:vector_size]) map(to                                                                       \
-                                                       : vectors [0:vector_size * DIM]) map(to                                  \
-                                                                                            : centroids [0:K * DIM]) map(tofrom \
-                                                                                                                         : cluster_sizes [0:K])
+#pragma omp target map(tofrom                                                                                                                  \
+                       : changed) map(tofrom                                                                                                   \
+                                      : clusters [0:vector_size]) map(to                                                                       \
+                                                                      : vectors [0:vector_size * DIM]) map(to                                  \
+                                                                                                           : centroids [0:K * DIM]) map(tofrom \
+                                                                                                                                        : cluster_sizes [0:K])
     {
 #pragma omp parallel for
         for (unsigned i = 0; i < vector_size; i++)
