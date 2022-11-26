@@ -15,4 +15,3 @@ kmeans_cuda: src/kmeans/kmeans_cuda.cu
 kmeans_openmp: src/kmeans/kmeans_openmp.cpp
 	$(dir_guard)
 	$(GPP_BIN) -o bin/kmeans_openmp src/kmeans/kmeans_openmp.cpp -fopenmp -foffload=nvptx-none -std=$(GPP_STD)
-
