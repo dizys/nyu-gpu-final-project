@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
 
     int iteration = 0;
     bool changed = true;
-    while (iteration < 10)
+    while (changed)
     {
         changed = assign_clusters(vector_size, vectors, centroids, clusters, cluster_sizes);
         compute_centroids(vector_size, vectors, centroids, clusters, cluster_sizes);
