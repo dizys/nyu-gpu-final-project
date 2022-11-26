@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
 
     int iteration = 0;
     bool changed = true;
-    while (changed)
+    while (iteration < 10)
     {
         changed = assign_clusters(vector_size, vectors, centroids, clusters, cluster_sizes);
         for (unsigned i = 0; i < K; i++)
