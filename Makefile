@@ -8,10 +8,14 @@ dir_guard=@mkdir -p bin
 
 all: kmeans_cuda kmeans_openmp
 
+kmeans_seq: src/kmeans/kmeans_seq.cpp
+	$(dir_guard)
+	$(GPP_BIN) -std=$(GPP_STD) -o bin/kmeans_seq src/kmeans/kmeans_seq.cpp
+
 kmeans_cuda: src/kmeans/kmeans_cuda.cu
 	$(dir_guard)
-	$(NVCC_BIN) -o bin/kmeans_cuda src/kmeans/kmeans_cuda.cu -std=$(GPP_STD)
+	$(NVCC_BIN) -std=$(GPP_STD) -o bin/kmeans_cuda src/kmeans/kmeans_cuda.cu
 
 kmeans_openmp: src/kmeans/kmeans_openmp.cpp
 	$(dir_guard)
-	$(GPP_BIN) -o bin/kmeans_openmp src/kmeans/kmeans_openmp.cpp -fopenmp -foffload=nvptx-none -std=$(GPP_STD)
+	$(GPP_BIN) -std=$(GPP_STD) -o bin/kmeans_openmp -fopenmp -foffload=nvptx-none src/kmeans/kmeans_openmp.cpp
