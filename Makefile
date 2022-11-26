@@ -1,5 +1,5 @@
 GPP_BIN=gcc
-GPP_STD=c++17
+GPP_STD=c++14
 NVCC_BIN=nvcc
 
 dir_guard=@mkdir -p bin
