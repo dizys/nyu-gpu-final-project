@@ -6,6 +6,9 @@
 #include <omp.h>
 #include <stdio.h>
 
+#define K 10
+#define DIM 3
+
 float *parse_input(const std::string &filename, long unsigned &vector_size)
 {
     std::ifstream input;
