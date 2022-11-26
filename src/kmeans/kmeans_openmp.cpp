@@ -84,15 +84,18 @@ bool assign_clusters(unsigned vector_size, float *vectors, float *centroids, uns
                     min_cluster = j;
                 }
             }
-#pragma omp critical
+
             {
                 if (clusters[i] != min_cluster)
                 {
                     changed = true;
-                    printf("Changed cluster of vector %d from %d to %d.\n", i, clusters[i], min_cluster);
                     clusters[i] = min_cluster;
                 }
-                cluster_sizes[min_cluster]++;
+
+#pragma omp critical
+                {
+                    cluster_sizes[min_cluster]++;
+                }
             }
         }
     }
@@ -151,39 +154,12 @@ int main(int argc, char *argv[])
 
     clock_gettime(CLOCK_REALTIME, &start_time);
 
-    for (unsigned i = 0; i < K; i++)
-    {
-        std::cout << "Centroid " << i << ": ";
-        for (unsigned j = 0; j < DIM; j++)
-        {
-            std::cout << centroids[i * DIM + j] << " ";
-        }
-        std::cout << std::endl;
-    }
-
     int iteration = 0;
     bool changed = true;
     while (iteration < 10)
     {
         changed = assign_clusters(vector_size, vectors, centroids, clusters, cluster_sizes);
-        if (!changed)
-        {
-            printf("No changes in cluster assignment.\n");
-        }
-        for (unsigned i = 0; i < K; i++)
-        {
-            std::cout << "Cluster " << i << " size: " << cluster_sizes[i] << std::endl;
-        }
         compute_centroids(vector_size, vectors, centroids, clusters, cluster_sizes);
-        for (unsigned i = 0; i < K; i++)
-        {
-            std::cout << "Centroid " << i << ": ";
-            for (unsigned j = 0; j < DIM; j++)
-            {
-                std::cout << centroids[i * DIM + j] << " ";
-            }
-            std::cout << std::endl;
-        }
         iteration++;
         std::cout << "Iteration #" << iteration << ": " << (changed ? "centroids changed, continuing..." : "converged.") << std::endl;
     }
