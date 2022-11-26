@@ -57,107 +57,113 @@ bool assign_clusters(unsigned vector_size, float *vectors, float *centroids, uns
     {
         cluster_sizes[i] = 0;
     }
-#pragma omp target
-    for (unsigned i = 0; i < vector_size; i++)
+#pragma omp target map(tofrom                                                                                                   \
+                       : clusters [0:vector_size]) map(to                                                                       \
+                                                       : vectors [0:vector_size * DIM]) map(to                                  \
+                                                                                            : centroids [0:K * DIM]) map(tofrom \
+                                                                                                                         : cluster_sizes [0:K])
     {
-        float min_distance = FLT_MAX;
-        unsigned min_cluster = 0;
-        for (unsigned j = 0; j < K; j++)
+#pragma omp parallel for
+        for (unsigned i = 0; i < vector_size; i++)
         {
-            float distance = 0;
-            for (unsigned k = 0; k < DIM; k++)
+            float min_distance = FLT_MAX;
+            unsigned min_cluster = 0;
+            for (unsigned j = 0; j < K; j++)
             {
-                float diff = vectors[i * DIM + k] - centroids[j * DIM + k];
-                distance += diff * diff;
+                float distance = 0;
+                for (unsigned k = 0; k < DIM; k++)
+                {
+                    float diff = vectors[i * DIM + k] - centroids[j * DIM + k];
+                    distance += diff * diff;
+                }
+                if (distance < min_distance)
+                {
+                    min_distance = distance;
+                    min_cluster = j;
+                }
             }
-            if (distance < min_distance)
+            if (clusters[i] != min_cluster)
             {
-                min_distance = distance;
-                min_cluster = j;
+                changed = true;
+                clusters[i] = min_cluster;
             }
-        }
-        if (clusters[i] != min_cluster)
-        {
-            changed = true;
-            clusters[i] = min_cluster;
-        }
 #pragma omp critical
+            {
+                cluster_sizes[min_cluster]++;
+            }
+        }
+        return changed;
+    }
+
+    void compute_centroids(unsigned vector_size, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes)
+    {
+        for (unsigned i = 0; i < K; i++)
         {
-            cluster_sizes[min_cluster]++;
+            for (unsigned j = 0; j < DIM; j++)
+            {
+                centroids[i * DIM + j] = 0;
+            }
+        }
+
+        for (unsigned i = 0; i < vector_size; i++)
+        {
+            unsigned cluster = clusters[i];
+            for (unsigned j = 0; j < DIM; j++)
+            {
+                centroids[cluster * DIM + j] += vectors[i * DIM + j];
+            }
+        }
+
+        for (unsigned i = 0; i < K; i++)
+        {
+            for (unsigned j = 0; j < DIM; j++)
+            {
+                centroids[i * DIM + j] /= cluster_sizes[i];
+            }
         }
     }
-    return changed;
-}
 
-void compute_centroids(unsigned vector_size, float *vectors, float *centroids, unsigned *clusters, unsigned *cluster_sizes)
-{
-    for (unsigned i = 0; i < K; i++)
+    int main(int argc, char *argv[])
     {
-        for (unsigned j = 0; j < DIM; j++)
+        if (argc != 2)
         {
-            centroids[i * DIM + j] = 0;
+            std::cout << "usage: " << argv[0] << " filename" << std::endl;
+            return 1;
         }
-    }
-
-    for (unsigned i = 0; i < vector_size; i++)
-    {
-        unsigned cluster = clusters[i];
-        for (unsigned j = 0; j < DIM; j++)
+        std::string filename = argv[1];
+        long unsigned vector_size = 0;
+        float *vectors = parse_input(filename, vector_size);
+        float *centroids = (float *)malloc(K * DIM * sizeof(float));
+        unsigned *clusters = (unsigned *)malloc(vector_size * sizeof(unsigned));
+        unsigned *cluster_sizes = (unsigned *)calloc(K, sizeof(unsigned));
+        for (unsigned i = 0; i < vector_size; i++)
         {
-            centroids[cluster * DIM + j] += vectors[i * DIM + j];
+            clusters[i] = 0;
         }
-    }
+        pick_random_centroids(centroids, vectors, vector_size);
 
-    for (unsigned i = 0; i < K; i++)
-    {
-        for (unsigned j = 0; j < DIM; j++)
+        struct timespec start_time, end_time;
+
+        clock_gettime(CLOCK_REALTIME, &start_time);
+
+        int iteration = 0;
+        bool changed = true;
+        while (changed)
         {
-            centroids[i * DIM + j] /= cluster_sizes[i];
+            changed = assign_clusters(vector_size, vectors, centroids, clusters, cluster_sizes);
+            compute_centroids(vector_size, vectors, centroids, clusters, cluster_sizes);
+            iteration++;
+            std::cout << "Iteration #" << iteration << ": " << (changed ? "centroids changed, continuing..." : "converged.") << std::endl;
         }
+
+        clock_gettime(CLOCK_REALTIME, &end_time);
+
+        printf("Total time taken by the GPU part = %lf\n", (double)(end_time.tv_sec - start_time.tv_sec) + (double)(end_time.tv_nsec - start_time.tv_nsec) / 1000000000);
+
+        free(vectors);
+        free(centroids);
+        free(clusters);
+        free(cluster_sizes);
+
+        return 0;
     }
-}
-
-int main(int argc, char *argv[])
-{
-    if (argc != 2)
-    {
-        std::cout << "usage: " << argv[0] << " filename" << std::endl;
-        return 1;
-    }
-    std::string filename = argv[1];
-    long unsigned vector_size = 0;
-    float *vectors = parse_input(filename, vector_size);
-    float *centroids = (float *)malloc(K * DIM * sizeof(float));
-    unsigned *clusters = (unsigned *)malloc(vector_size * sizeof(unsigned));
-    unsigned *cluster_sizes = (unsigned *)calloc(K, sizeof(unsigned));
-    for (unsigned i = 0; i < vector_size; i++)
-    {
-        clusters[i] = 0;
-    }
-    pick_random_centroids(centroids, vectors, vector_size);
-
-    struct timespec start_time, end_time;
-
-    clock_gettime(CLOCK_REALTIME, &start_time);
-
-    int iteration = 0;
-    bool changed = true;
-    while (changed)
-    {
-        changed = assign_clusters(vector_size, vectors, centroids, clusters, cluster_sizes);
-        compute_centroids(vector_size, vectors, centroids, clusters, cluster_sizes);
-        iteration++;
-        std::cout << "Iteration #" << iteration << ": " << (changed ? "centroids changed, continuing..." : "converged.") << std::endl;
-    }
-
-    clock_gettime(CLOCK_REALTIME, &end_time);
-
-    printf("Total time taken by the GPU part = %lf\n", (double)(end_time.tv_sec - start_time.tv_sec) + (double)(end_time.tv_nsec - start_time.tv_nsec) / 1000000000);
-
-    free(vectors);
-    free(centroids);
-    free(clusters);
-    free(cluster_sizes);
-
-    return 0;
-}
