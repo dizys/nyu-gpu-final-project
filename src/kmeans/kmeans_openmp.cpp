@@ -156,6 +156,10 @@ int main(int argc, char *argv[])
     {
         changed = assign_clusters(vector_size, vectors, centroids, clusters, cluster_sizes);
         compute_centroids(vector_size, vectors, centroids, clusters, cluster_sizes);
+        for (unsigned i = 0; i < K; i++)
+        {
+            std::cout << "Cluster " << i << " size: " << cluster_sizes[i] << std::endl;
+        }
         iteration++;
         std::cout << "Iteration #" << iteration << ": " << (changed ? "centroids changed, continuing..." : "converged.") << std::endl;
     }
