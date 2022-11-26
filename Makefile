@@ -1,6 +1,6 @@
 GPP_BIN=gcc
-GPP_STD=c++14
-NVCPP_BIN=nvc++
+GPP_STD=c++17
+NVCC_BIN=nvcc
 
 dir_guard=@mkdir -p bin
 
@@ -10,7 +10,7 @@ all: kmeans_cuda kmeans_openmp
 
 kmeans_cuda: src/kmeans/kmeans_cuda.cu
 	$(dir_guard)
-	$(NVCPP_BIN) -o bin/kmeans_cuda src/kmeans/kmeans_cuda.cu -std=$(GPP_STD)
+	$(NVCC_BIN) -o bin/kmeans_cuda src/kmeans/kmeans_cuda.cu
 
 kmeans_openmp: src/kmeans/kmeans_openmp.cpp
 	$(dir_guard)
