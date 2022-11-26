@@ -3,6 +3,7 @@
 #include <cfloat>
 #include <cstdlib>
 #include <time.h>
+#include <ctime>
 #include <cuda.h>
 #include <stdio.h>
 

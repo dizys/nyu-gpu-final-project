@@ -3,6 +3,7 @@
 #include <cfloat>
 #include <cstdlib>
 #include <time.h>
+#include <ctime>
 #include <omp.h>
 #include <stdio.h>
 
