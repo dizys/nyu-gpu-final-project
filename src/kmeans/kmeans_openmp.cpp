@@ -175,6 +175,16 @@ int main(int argc, char *argv[])
 
     clock_gettime(CLOCK_REALTIME, &start_time);
 
+    for (unsigned i = 0; i < K; i++)
+    {
+        std::cout << "Centroid " << i << ": ";
+        for (unsigned j = 0; j < DIM; j++)
+        {
+            std::cout << centroids[i * DIM + j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
     int iteration = 0;
     bool changed = true;
     while (changed)
