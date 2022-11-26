@@ -84,8 +84,11 @@ bool assign_clusters(unsigned vector_size, float *vectors, float *centroids, uns
             }
             if (clusters[i] != min_cluster)
             {
-                changed = true;
-                clusters[i] = min_cluster;
+#pragma omp critical
+                {
+                    changed = true;
+                    clusters[i] = min_cluster;
+                }
             }
 #pragma omp critical
             {
