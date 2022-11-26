@@ -5,21 +5,9 @@
 #include <time.h>
 #include <omp.h>
 #include <stdio.h>
-#include <random>
-#include <vector>
-#include <string>
-#include <unordered_set>
 
 #define K 10
 #define DIM 3
-
-static inline double random_double(double min, double max)
-{
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(min, max);
-    return dis(gen);
-}
 
 float *parse_input(const std::string &filename, long unsigned &vector_size)
 {
@@ -52,25 +40,12 @@ float *parse_input(const std::string &filename, long unsigned &vector_size)
 
 void pick_random_centroids(float *centroids, float *vector, long unsigned vector_size)
 {
-    std::unordered_set<int> picked_centers;
     for (int i = 0; i < K; i++)
     {
-        while (true)
+        int centroid_index = rand() % vector_size;
+        for (int j = 0; j < DIM; j++)
         {
-            int centroid_index = (int)(random_double(0, 1) * (double)vector_size);
-            if (centroid_index == (int)vector_size)
-            {
-                centroid_index--;
-            }
-            if (picked_centers.find(centroid_index) == picked_centers.end())
-            {
-                picked_centers.insert(centroid_index);
-                for (int j = 0; j < DIM; j++)
-                {
-                    centroids[i * DIM + j] = vector[centroid_index * DIM + j];
-                }
-                break;
-            }
+            centroids[i * DIM + j] = vector[centroid_index * DIM + j];
         }
     }
 }
@@ -154,6 +129,7 @@ void compute_centroids(unsigned vector_size, float *vectors, float *centroids, u
 
 int main(int argc, char *argv[])
 {
+    std::srand(std::time(nullptr));
     if (argc != 2)
     {
         std::cout << "usage: " << argv[0] << " filename" << std::endl;
