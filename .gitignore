@@ -5,3 +5,6 @@
 # debug
 *.log
 *.stackdump
+
+# artifacts
+/bin

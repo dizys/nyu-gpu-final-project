@@ -19,3 +19,10 @@ kmeans_cuda: src/kmeans/kmeans_cuda.cu
 kmeans_openmp: src/kmeans/kmeans_openmp.cpp
 	$(dir_guard)
 	$(GPP_BIN) -std=$(GPP_STD) -o bin/kmeans_openmp -fopenmp -foffload=nvptx-none src/kmeans/kmeans_openmp.cpp
+
+bfs_seq: src/bfs/bfs_seq.cpp
+	$(dir_guard)
+	$(GPP_BIN) -std=$(GPP_STD) -o bin/bfs_seq src/bfs/bfs_seq.cpp
+
+clean:
+	rm -rf bin
