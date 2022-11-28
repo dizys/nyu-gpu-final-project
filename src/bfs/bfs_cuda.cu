@@ -73,6 +73,7 @@ bool **parse_input(const std::string &filename, int &sample_size, int &graph_siz
 __global__ void bfs_kernel(bool *graph, bool *visited, bool *explored, int *frontier, int *next_frontier_size, int *next_frontier, int frontier_size, int graph_size, int stride)
 {
   int tid = threadIdx.x + blockIdx.x * blockDim.x;
+  printf("tid: %d, stride: %d, frontier_size: %d\n", tid, stride, frontier_size);
   for (int i = tid * stride; i < (tid + 1) * stride && i < frontier_size; i++)
   {
     int node = frontier[i];
@@ -83,7 +84,7 @@ __global__ void bfs_kernel(bool *graph, bool *visited, bool *explored, int *fron
       {
         explored[j] = true;
         int index = atomicAdd(next_frontier_size, 1);
-        printf("index: %d, next_frontier_size: %d, j: %d", index, *next_frontier_size, j);
+        printf("index: %d, next_frontier_size: %d, j: %d\n", index, *next_frontier_size, j);
         next_frontier[index] = j;
       }
     }
@@ -130,6 +131,7 @@ void bfs_graph(bool *graph, int graph_size)
 
     int stride = ceil((double)frontier_size / (BLOCK_NUM * BLOCK_SIZE));
     bfs_kernel<<<dimGrid, dimBlock>>>(d_graph, d_visited, d_explored, d_frontier, d_next_frontier_size, d_next_frontier, frontier_size, graph_size, stride);
+    cudaDeviceSynchronize();
 
     cudaMemcpy(&frontier_size, d_next_frontier_size, sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(frontier, d_next_frontier, frontier_size * sizeof(int), cudaMemcpyDeviceToHost);
