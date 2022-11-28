@@ -84,7 +84,7 @@ __global__ void bfs_kernel(bool *graph, bool *visited, bool *explored, int *fron
       {
         explored[j] = true;
         int index = atomicAdd(next_frontier_size, 1);
-        printf("index: %d, next_frontier_size: %d, j: %d\n", index, *next_frontier_size, j);
+        // printf("index: %d, next_frontier_size: %d, j: %d\n", index, *next_frontier_size, j);
         next_frontier[index] = j;
       }
     }
