@@ -97,7 +97,7 @@ void bfs_graph(bool *graph, int graph_size)
   cudaMalloc((void **)&d_explored, graph_size * sizeof(bool));
   int *d_frontier, *d_next_frontier_size, *d_next_frontier;
   cudaMalloc((void **)&d_frontier, graph_size * sizeof(int));
-  cudaMalloc((void *)&d_next_frontier_size, sizeof(int));
+  cudaMalloc((void **)&d_next_frontier_size, sizeof(int));
   cudaMalloc((void **)&d_next_frontier, graph_size * sizeof(int));
 
   cudaMemcpy(d_graph, graph, graph_size * graph_size * sizeof(bool), cudaMemcpyHostToDevice);
@@ -115,7 +115,7 @@ void bfs_graph(bool *graph, int graph_size)
     int stride = ceil((double)frontier_size / (BLOCK_NUM * BLOCK_SIZE));
     bfs_kernel<<<dimGrid, dimBlock>>>(d_graph, d_visited, d_explored, d_frontier, d_next_frontier_size, d_next_frontier, frontier_size, graph_size, stride);
 
-    cudaMemcpy(frontier_size, d_next_frontier_size, sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&frontier_size, d_next_frontier_size, sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(frontier, d_next_frontier, frontier_size * sizeof(int), cudaMemcpyDeviceToHost);
   }
 
