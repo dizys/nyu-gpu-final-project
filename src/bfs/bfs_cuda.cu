@@ -10,7 +10,7 @@
 #define BLOCK_NUM 8
 #define BLOCK_SIZE 500
 
-bool **parse_input(const std::string &filename, long unsigned &sample_size, long unsigned &graph_size)
+bool **parse_input(const std::string &filename, int &sample_size, int &graph_size)
 {
   std::ifstream input;
   input.open(filename.c_str());
@@ -26,9 +26,9 @@ bool **parse_input(const std::string &filename, long unsigned &sample_size, long
   }
 
   bool **graph_list = (bool **)malloc(sample_size * sizeof(bool *));
-  for (long unsigned i = 0; i < sample_size; i++)
+  for (int i = 0; i < sample_size; i++)
   {
-    long unsigned new_graph_size;
+    int new_graph_size;
     if (!(input >> new_graph_size))
     {
       std::cout << "Error: cannot read graph size" << std::endl;
@@ -41,21 +41,21 @@ bool **parse_input(const std::string &filename, long unsigned &sample_size, long
     }
     graph_size = new_graph_size;
     graph_list[i] = (bool *)malloc(graph_size * graph_size * sizeof(bool));
-    for (long unsigned j = 0; j < graph_size * graph_size; j++)
+    for (int j = 0; j < graph_size * graph_size; j++)
     {
       graph_list[i][j] = false;
     }
-    for (long unsigned j = 0; j < graph_size; j++)
+    for (int j = 0; j < graph_size; j++)
     {
-      long unsigned list_size;
+      int list_size;
       if (!(input >> list_size))
       {
         std::cout << "Error: cannot read list size" << std::endl;
         exit(1);
       }
-      for (long unsigned k = 0; k < list_size; k++)
+      for (int k = 0; k < list_size; k++)
       {
-        long unsigned neighbor;
+        int neighbor;
         if (!(input >> neighbor))
         {
           std::cout << "Error: cannot read neighbor" << std::endl;
@@ -70,33 +70,33 @@ bool **parse_input(const std::string &filename, long unsigned &sample_size, long
   return graph_list;
 }
 
-__global__ void bfs_kernel(bool *graph, bool *visited, bool *explored, long unsigned *frontier, long unsigned *next_frontier_size, long unsigned *next_frontier, long unsigned frontier_size, long unsigned graph_size, long unsigned stride)
+__global__ void bfs_kernel(bool *graph, bool *visited, bool *explored, int *frontier, int *next_frontier_size, int *next_frontier, int frontier_size, int graph_size, int stride)
 {
 }
 
-void bfs_graph(bool *graph, long unsigned graph_size)
+void bfs_graph(bool *graph, int graph_size)
 {
   bool *visited = (bool *)malloc(graph_size * sizeof(bool));
-  for (long unsigned i = 0; i < graph_size; i++)
+  for (int i = 0; i < graph_size; i++)
   {
     visited[i] = false;
   }
   bool *explored = (bool *)malloc(graph_size * sizeof(bool));
-  for (long unsigned i = 0; i < graph_size; i++)
+  for (int i = 0; i < graph_size; i++)
   {
     explored[i] = false;
   }
   explored[0] = true;
-  long unsigned frontier_size = 1;
-  long unsigned *frontier = (long unsigned *)malloc(graph_size * sizeof(long unsigned));
+  int frontier_size = 1;
+  int *frontier = (int *)malloc(graph_size * sizeof(int));
   frontier[0] = 0;
 
   bool *d_graph = cudaMalloc(graph_size * graph_size * sizeof(bool));
   bool *d_visited = cudaMalloc(graph_size * sizeof(bool));
   bool *d_explored = cudaMalloc(graph_size * sizeof(bool));
-  long unsigned *d_frontier = cudaMalloc(graph_size * sizeof(long unsigned));
-  long unsigned *d_next_frontier_size = cudaMalloc(sizeof(long unsigned));
-  long unsigned *d_next_frontier = cudaMalloc(graph_size * sizeof(long unsigned));
+  int *d_frontier = cudaMalloc(graph_size * sizeof(int));
+  int *d_next_frontier_size = cudaMalloc(sizeof(int));
+  int *d_next_frontier = cudaMalloc(graph_size * sizeof(int));
 
   cudaMemcpy(d_graph, graph, graph_size * graph_size * sizeof(bool), cudaMemcpyHostToDevice);
   cudaMemcpy(d_visited, visited, graph_size * sizeof(bool), cudaMemcpyHostToDevice);
@@ -104,8 +104,8 @@ void bfs_graph(bool *graph, long unsigned graph_size)
 
   while (frontier_size > 0)
   {
-    cudaMemcpy(d_frontier, frontier, frontier_size * sizeof(long unsigned), cudaMemcpyHostToDevice);
-    cudaMemset(d_next_frontier_size, 0, sizeof(long unsigned));
+    cudaMemcpy(d_frontier, frontier, frontier_size * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemset(d_next_frontier_size, 0, sizeof(int));
 
     dim3 dimBlock(BLOCK_SIZE, 1, 1);
     dim3 dimGrid(BLOCK_NUM, 1, 1);
@@ -113,8 +113,8 @@ void bfs_graph(bool *graph, long unsigned graph_size)
     unsigned long stride = ceil((double)frontier_size / (BLOCK_NUM * BLOCK_SIZE));
     bfs_kernel<<<dimGrid, dimBlock>>>(d_graph, d_visited, d_explored, d_frontier, d_next_frontier_size, d_next_frontier, frontier_size, graph_size, stride);
 
-    cudaMemcpy(frontier_size, d_next_frontier_size, sizeof(long unsigned), cudaMemcpyDeviceToHost);
-    cudaMemcpy(frontier, d_next_frontier, frontier_size * sizeof(long unsigned), cudaMemcpyDeviceToHost);
+    cudaMemcpy(frontier_size, d_next_frontier_size, sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(frontier, d_next_frontier, frontier_size * sizeof(int), cudaMemcpyDeviceToHost);
   }
 
   cudaFree(d_visited);
@@ -136,13 +136,13 @@ int main(int argc, char *argv[])
     exit(1);
   }
   std::string filename = argv[1];
-  long unsigned iterations = 1;
+  int iterations = 1;
   if (argc == 3)
   {
     iterations = atoi(argv[2]);
   }
-  long unsigned sample_size = 0;
-  long unsigned graph_size = 0;
+  int sample_size = 0;
+  int graph_size = 0;
   bool **graph_list = parse_input(filename, sample_size, graph_size);
   std::cout << "sample_size: " << sample_size << std::endl;
   std::cout << "graph_size: " << graph_size << std::endl;
@@ -150,9 +150,9 @@ int main(int argc, char *argv[])
   struct timespec start_time, end_time;
   clock_gettime(CLOCK_REALTIME, &start_time);
 
-  for (long unsigned i = 0; i < iterations; i++)
+  for (int i = 0; i < iterations; i++)
   {
-    for (long unsigned j = 0; j < sample_size; j++)
+    for (int j = 0; j < sample_size; j++)
     {
       bfs_graph(graph_list[j], graph_size);
       std::cout << "- sample " << j << "/" << sample_size << " done." << std::endl;
