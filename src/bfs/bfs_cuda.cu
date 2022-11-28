@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
       bfs_graph(graph_list[j], graph_size);
       std::cout << "- sample " << j << "/" << sample_size << " done." << std::endl;
     }
-    std::cout << "iteration " << i << "/" << iterations << " finished." << std::endl;
+    std::cout << "iteration " << i + 1 << "/" << iterations << " finished." << std::endl;
   }
 
   clock_gettime(CLOCK_REALTIME, &end_time);
