@@ -73,7 +73,7 @@ void bfs_graph(bool *graph, long unsigned graph_size)
   {
     visited[i] = false;
   }
-  long unsigned *queue = (long unsigned *)malloc(graph_size * 2 * sizeof(long unsigned));
+  long unsigned *queue = (long unsigned *)malloc(graph_size * graph_size * sizeof(long unsigned));
   long unsigned queue_start = 0;
   long unsigned queue_end = 0;
   queue[queue_end++] = 0;
