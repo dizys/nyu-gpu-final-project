@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
     for (int j = 0; j < sample_size; j++)
     {
       bfs_graph(graph_list[j], graph_size);
-      std::cout << "- sample " << j << "/" << sample_size << " done." << std::endl;
+      std::cout << "- sample " << j + 1 << "/" << sample_size << " done." << std::endl;
     }
     std::cout << "iteration " << i + 1 << "/" << iterations << " finished." << std::endl;
   }
