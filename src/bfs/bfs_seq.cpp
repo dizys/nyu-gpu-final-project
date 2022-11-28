@@ -86,7 +86,6 @@ void bfs_graph(bool *graph, long unsigned graph_size)
   while (queue_start < queue_end)
   {
     long unsigned node = queue[queue_start++];
-    std::cout << node << std::endl;
     for (long unsigned i = 0; i < graph_size; i++)
     {
       if (graph[node * graph_size + i] && !explored[i])
