@@ -72,6 +72,21 @@ bool **parse_input(const std::string &filename, int &sample_size, int &graph_siz
 
 __global__ void bfs_kernel(bool *graph, bool *visited, bool *explored, int *frontier, int *next_frontier_size, int *next_frontier, int frontier_size, int graph_size, int stride)
 {
+  int tid = threadIdx.x + blockIdx.x * blockDim.x;
+  for (int i = tid * stride; i < (tid + 1) * stride && i < frontier_size; i++)
+  {
+    int node = frontier[i];
+    visited[node] = true;
+    for (int j = 0; j < graph_size; j++)
+    {
+      if (graph[node * graph_size + j] && !explored[j])
+      {
+        explored[j] = true;
+        int index = atomicAdd(next_frontier_size, 1);
+        next_frontier[index] = j;
+      }
+    }
+  }
 }
 
 void bfs_graph(bool *graph, int graph_size)
