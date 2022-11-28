@@ -103,12 +103,17 @@ void bfs_graph(bool *graph, long unsigned graph_size)
 
 int main(int argc, char *argv[])
 {
-  if (argc != 2)
+  if (argc < 2 || argc > 3)
   {
-    std::cout << "usage: " << argv[0] << " filename" << std::endl;
-    return 1;
+    std::cout << "Usage: " << argv[0] << " <input file> [iterations=1]" << std::endl;
+    exit(1);
   }
   std::string filename = argv[1];
+  long unsigned iterations = 1;
+  if (argc == 3)
+  {
+    iterations = atoi(argv[2]);
+  }
   long unsigned sample_size = 0;
   long unsigned graph_size = 0;
   bool **graph_list = parse_input(filename, sample_size, graph_size);
@@ -118,10 +123,14 @@ int main(int argc, char *argv[])
   struct timespec start_time, end_time;
   clock_gettime(CLOCK_REALTIME, &start_time);
 
-  for (long unsigned i = 0; i < sample_size; i++)
+  for (long unsigned i = 0; i < iterations; i++)
   {
-    bfs_graph(graph_list[i], graph_size);
-    std::cout << "sample " << i << "/" << sample_size << " done." << std::endl;
+    for (long unsigned j = 0; j < sample_size; j++)
+    {
+      bfs_graph(graph_list[j], graph_size);
+      std::cout << "- sample " << j << "/" << sample_size << " done." << std::endl;
+    }
+    std::cout << "iteration " << i << "/" << iterations << " finished." << std::endl;
   }
 
   clock_gettime(CLOCK_REALTIME, &end_time);
