@@ -1,6 +1,10 @@
 #include <iostream>
 #include <fstream>
+#include <cfloat>
 #include <cstdlib>
+#include <time.h>
+#include <ctime>
+#include <stdio.h>
 
 bool **parse_input(const std::string &filename, long unsigned &sample_size, long unsigned &graph_size)
 {
@@ -62,6 +66,10 @@ bool **parse_input(const std::string &filename, long unsigned &sample_size, long
   return graph_list;
 }
 
+void bfs_graph(bool *graph, long unsigned graph_size)
+{
+}
+
 int main(int argc, char *argv[])
 {
   if (argc != 2)
@@ -75,7 +83,19 @@ int main(int argc, char *argv[])
   bool **graph_list = parse_input(filename, sample_size, graph_size);
   std::cout << "sample_size: " << sample_size << std::endl;
   std::cout << "graph_size: " << graph_size << std::endl;
-  std::cout << "Hello World!" << std::endl;
-  free(graph_list);
+
+  struct timespec start_time, end_time;
+  clock_gettime(CLOCK_REALTIME, &start_time);
+
+  for (long unsigned i = 0; i < sample_size; i++)
+  {
+    bfs_graph(graph_list[i], graph_size);
+    std::cout << "sample " << i << "/" << sample_size << " done." << std::endl;
+  }
+
+  clock_gettime(CLOCK_REALTIME, &end_time);
+
+  printf("Total time taken by the CPU part = %lf\n", (double)(end_time.tv_sec - start_time.tv_sec) + (double)(end_time.tv_nsec - start_time.tv_nsec) / 1000000000);
+
   return 0;
 }

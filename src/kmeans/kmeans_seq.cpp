@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
 
   clock_gettime(CLOCK_REALTIME, &end_time);
 
-  printf("Total time taken by the GPU part = %lf\n", (double)(end_time.tv_sec - start_time.tv_sec) + (double)(end_time.tv_nsec - start_time.tv_nsec) / 1000000000);
+  printf("Total time taken by the CPU part = %lf\n", (double)(end_time.tv_sec - start_time.tv_sec) + (double)(end_time.tv_nsec - start_time.tv_nsec) / 1000000000);
 
   free(vectors);
   free(centroids);
