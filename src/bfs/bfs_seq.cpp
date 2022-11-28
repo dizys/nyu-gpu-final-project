@@ -72,6 +72,8 @@ int main(int argc, char *argv[])
   long unsigned sample_size = 0;
   long unsigned graph_size = 0;
   bool **graph_list = parse_input(filename, sample_size, graph_size);
+  std::cout << "sample_size: " << sample_size << std::endl;
+  std::cout << "graph_size: " << graph_size << std::endl;
   std::cout << "Hello World!" << std::endl;
   return 0;
 }
