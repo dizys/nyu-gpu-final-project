@@ -77,18 +77,18 @@ void bfs_graph(bool *graph, long unsigned graph_size)
   long unsigned queue_start = 0;
   long unsigned queue_end = 0;
   queue[queue_end++] = 0;
-  while (queue_start < queue_end)
-  {
-    long unsigned node = queue[queue_start++];
-    visited[node] = true;
-    for (long unsigned i = 0; i < graph_size; i++)
-    {
-      if (graph[node * graph_size + i] && !visited[i])
-      {
-        queue[queue_end++] = i;
-      }
-    }
-  }
+  // while (queue_start < queue_end)
+  // {
+  //   long unsigned node = queue[queue_start++];
+  //   visited[node] = true;
+  //   for (long unsigned i = 0; i < graph_size; i++)
+  //   {
+  //     if (graph[node * graph_size + i] && !visited[i])
+  //     {
+  //       queue[queue_end++] = i;
+  //     }
+  //   }
+  // }
   free(visited);
   free(queue);
 }
