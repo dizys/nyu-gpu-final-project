@@ -73,24 +73,32 @@ void bfs_graph(bool *graph, long unsigned graph_size)
   {
     visited[i] = false;
   }
+  bool *explored = (bool *)malloc(graph_size * sizeof(bool));
+  for (long unsigned i = 0; i < graph_size; i++)
+  {
+    explored[i] = false;
+  }
   long unsigned *queue = (long unsigned *)malloc(graph_size * graph_size * sizeof(long unsigned));
   long unsigned queue_start = 0;
   long unsigned queue_end = 0;
   queue[queue_end++] = 0;
+  explored[0] = true;
   while (queue_start < queue_end)
   {
     long unsigned node = queue[queue_start++];
     std::cout << node << std::endl;
-    visited[node] = true;
     for (long unsigned i = 0; i < graph_size; i++)
     {
-      if (graph[node * graph_size + i] && !visited[i])
+      if (graph[node * graph_size + i] && !explored[i])
       {
         queue[queue_end++] = i;
+        explored[i] = true;
       }
     }
+    visited[node] = true;
   }
   free(visited);
+  free(explored);
   free(queue);
 }
 
