@@ -91,12 +91,14 @@ void bfs_graph(bool *graph, int graph_size)
   int *frontier = (int *)malloc(graph_size * sizeof(int));
   frontier[0] = 0;
 
-  bool *d_graph = cudaMalloc(graph_size * graph_size * sizeof(bool));
-  bool *d_visited = cudaMalloc(graph_size * sizeof(bool));
-  bool *d_explored = cudaMalloc(graph_size * sizeof(bool));
-  int *d_frontier = cudaMalloc(graph_size * sizeof(int));
-  int *d_next_frontier_size = cudaMalloc(sizeof(int));
-  int *d_next_frontier = cudaMalloc(graph_size * sizeof(int));
+  bool *d_graph, *d_visited, *d_explored;
+  cudaMalloc((void **)&d_graph, graph_size * graph_size * sizeof(bool));
+  cudaMalloc((void **)&d_visited, graph_size * sizeof(bool));
+  cudaMalloc((void **)&d_explored, graph_size * sizeof(bool));
+  int *d_frontier, *d_next_frontier_size, *d_next_frontier;
+  cudaMalloc((void **)&d_frontier, graph_size * sizeof(int));
+  cudaMalloc((void **)&d_next_frontier_size, sizeof(int));
+  cudaMalloc((void **)&d_next_frontier, graph_size * sizeof(int));
 
   cudaMemcpy(d_graph, graph, graph_size * graph_size * sizeof(bool), cudaMemcpyHostToDevice);
   cudaMemcpy(d_visited, visited, graph_size * sizeof(bool), cudaMemcpyHostToDevice);
