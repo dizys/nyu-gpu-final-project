@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 bool **parse_input(const std::string &filename, long unsigned &sample_size, long unsigned &graph_size)
 {
@@ -75,5 +76,6 @@ int main(int argc, char *argv[])
   std::cout << "sample_size: " << sample_size << std::endl;
   std::cout << "graph_size: " << graph_size << std::endl;
   std::cout << "Hello World!" << std::endl;
+  free(graph_list);
   return 0;
 }
