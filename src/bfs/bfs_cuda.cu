@@ -110,7 +110,7 @@ void bfs_graph(bool *graph, int graph_size)
     dim3 dimBlock(BLOCK_SIZE, 1, 1);
     dim3 dimGrid(BLOCK_NUM, 1, 1);
 
-    unsigned long stride = ceil((double)frontier_size / (BLOCK_NUM * BLOCK_SIZE));
+    int stride = ceil((double)frontier_size / (BLOCK_NUM * BLOCK_SIZE));
     bfs_kernel<<<dimGrid, dimBlock>>>(d_graph, d_visited, d_explored, d_frontier, d_next_frontier_size, d_next_frontier, frontier_size, graph_size, stride);
 
     cudaMemcpy(frontier_size, d_next_frontier_size, sizeof(int), cudaMemcpyDeviceToHost);
