@@ -43,3 +43,11 @@ Then, build the project:
 ```bash
 make GPP_BIN=$MY_GCC_PATH/bin/g++
 ```
+
+### Download datasets
+
+```bash
+mkdir -p /tmp/$(whoami)/data
+wget -O /tmp/$(whoami)/data/graph_g1000_s100.txt https://github.com/nyu-multicore/cims-gpu/releases/download/bfs-data/graph_g1000_s100.txt
+wget -O /tmp/$(whoami)/data/graph_g10000_s100.txt https://github.com/nyu-multicore/cims-gpu/releases/download/bfs-data/graph_g10000_s100.txt
+```
