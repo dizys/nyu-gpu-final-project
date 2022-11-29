@@ -26,7 +26,7 @@ bfs_seq: src/bfs/bfs_seq.cpp
 
 bfs_cuda: src/bfs/bfs_cuda.cu
 	$(dir_guard)
-	$(NVCC_BIN) -std=$(GPP_STD) -o bin/bfs_cuda src/bfs/bfs_cuda.cu
+	$(NVCC_BIN) -std=$(GPP_STD) -o bin/bfs_cuda -Xptxas -v src/bfs/bfs_cuda.cu
 
 clean:
 	rm -rf bin
