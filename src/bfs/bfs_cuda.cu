@@ -124,7 +124,7 @@ void bfs_graph(bool *graph, int graph_size)
   while (frontier_size[0] > 0)
   {
     cudaMemcpy(d_frontier, frontier, frontier_size[0] * sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemset(d_next_frontier_size[0], 0, sizeof(int));
+    cudaMemset(d_next_frontier_size, 0, sizeof(int));
 
     dim3 dimBlock(BLOCK_SIZE, 1, 1);
     dim3 dimGrid(BLOCK_NUM, 1, 1);
