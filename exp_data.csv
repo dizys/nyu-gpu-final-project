@@ -120,10 +120,10 @@ bfs_cuda, graph_g8000_s100.txt, 3, 4.122656
 bfs_cuda, graph_g8000_s100.txt, 4, 2.960516
 bfs_cuda, graph_g8000_s100.txt, 5, 3.700266
 bfs_cuda, graph_g16000_s100.txt, 1, 18.081104
-bfs_cuda, graph_g16000_s100.txt, 2,
-bfs_cuda, graph_g16000_s100.txt, 3,
-bfs_cuda, graph_g16000_s100.txt, 4,
-bfs_cuda, graph_g16000_s100.txt, 5,
+bfs_cuda, graph_g16000_s100.txt, 2, 19.917449
+bfs_cuda, graph_g16000_s100.txt, 3, 13.621146
+bfs_cuda, graph_g16000_s100.txt, 4, 14.513857
+bfs_cuda, graph_g16000_s100.txt, 5, 12.073004
 bfs_openmp, graph_g1000_s100.txt, 1,
 bfs_openmp, graph_g1000_s100.txt, 2,
 bfs_openmp, graph_g1000_s100.txt, 3,
