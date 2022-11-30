@@ -124,19 +124,19 @@ bfs_cuda, graph_g16000_s100.txt, 2, 19.917449
 bfs_cuda, graph_g16000_s100.txt, 3, 13.621146
 bfs_cuda, graph_g16000_s100.txt, 4, 14.513857
 bfs_cuda, graph_g16000_s100.txt, 5, 12.073004
-bfs_openmp, graph_g1000_s100.txt, 1,
-bfs_openmp, graph_g1000_s100.txt, 2,
-bfs_openmp, graph_g1000_s100.txt, 3,
-bfs_openmp, graph_g1000_s100.txt, 4,
-bfs_openmp, graph_g1000_s100.txt, 5,
-bfs_openmp, graph_g2000_s100.txt, 1,
-bfs_openmp, graph_g2000_s100.txt, 2,
-bfs_openmp, graph_g2000_s100.txt, 3,
-bfs_openmp, graph_g2000_s100.txt, 4,
-bfs_openmp, graph_g2000_s100.txt, 5,
-bfs_openmp, graph_g4000_s100.txt, 1,
-bfs_openmp, graph_g4000_s100.txt, 2,
-bfs_openmp, graph_g4000_s100.txt, 3,
+bfs_openmp, graph_g1000_s100.txt, 1, 3.836728
+bfs_openmp, graph_g1000_s100.txt, 2, 3.654334
+bfs_openmp, graph_g1000_s100.txt, 3, 3.683715
+bfs_openmp, graph_g1000_s100.txt, 4, 3.560555
+bfs_openmp, graph_g1000_s100.txt, 5, 3.554666
+bfs_openmp, graph_g2000_s100.txt, 1, 13.236510
+bfs_openmp, graph_g2000_s100.txt, 2, 13.100098
+bfs_openmp, graph_g2000_s100.txt, 3, 12.919905
+bfs_openmp, graph_g2000_s100.txt, 4, 13.104742
+bfs_openmp, graph_g2000_s100.txt, 5, 12.983511
+bfs_openmp, graph_g4000_s100.txt, 1, 49.379445
+bfs_openmp, graph_g4000_s100.txt, 2, 49.619426
+bfs_openmp, graph_g4000_s100.txt, 3, 49.445978
 bfs_openmp, graph_g4000_s100.txt, 4,
 bfs_openmp, graph_g4000_s100.txt, 5,
 bfs_openmp, graph_g8000_s100.txt, 1, 193.974758
