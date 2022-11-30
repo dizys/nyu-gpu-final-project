@@ -53,8 +53,8 @@ mkdir -p /tmp/$(whoami)/data
 wget -O /tmp/$(whoami)/data/kmeans_10000.txt https://media.githubusercontent.com/media/nyu-multicore/k-means/main/data/dataset-10000.txt
 wget -O /tmp/$(whoami)/data/kmeans_100000.txt https://media.githubusercontent.com/media/nyu-multicore/k-means/main/data/dataset-100000.txt
 wget -O /tmp/$(whoami)/data/kmeans_1000000.txt https://media.githubusercontent.com/media/nyu-multicore/k-means/main/data/dataset-1000000.txt
+wget -O /tmp/$(whoami)/data/kmeans_50000000.txt https://media.githubusercontent.com/media/nyu-multicore/k-means/main/data/dataset-5000000.txt
 wget -O /tmp/$(whoami)/data/kmeans_10000000.txt https://media.githubusercontent.com/media/nyu-multicore/k-means/main/data/dataset-10000000.txt
-wget -O /tmp/$(whoami)/data/kmeans_50000000.txt https://media.githubusercontent.com/media/nyu-multicore/k-means/main/data/dataset-50000000.txt
 
 # BFS datasets
 wget -O /tmp/$(whoami)/data/graph_g1000_s100.txt https://github.com/nyu-multicore/cims-gpu/releases/download/bfs-data/graph_g1000_s100.txt
