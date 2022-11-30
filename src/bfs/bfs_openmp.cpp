@@ -69,6 +69,56 @@ bool **parse_input(const std::string &filename, int &sample_size, int &graph_siz
 
 void bfs_graph(bool *graph, int graph_size)
 {
+  bool *visited = (bool *)malloc(graph_size * sizeof(bool));
+  for (int i = 0; i < graph_size; i++)
+  {
+    visited[i] = false;
+  }
+  bool *explored = (bool *)malloc(graph_size * sizeof(bool));
+  for (int i = 0; i < graph_size; i++)
+  {
+    explored[i] = false;
+  }
+  explored[0] = true;
+  int frontier_size = 1;
+  int *frontier = (int *)malloc(graph_size * sizeof(int));
+  frontier[0] = 0;
+  int *next_frontier = (int *)malloc(graph_size * sizeof(int));
+  int next_frontier_size = 0;
+  while (frontier_size > 0)
+  {
+#pragma omp target map(to                                              \
+                       : graph [0:graph_size * graph_size]) map(tofrom \
+                                                                : explored [0:graph_size], visited [0:graph_size], next_frontier [0:graph_size], next_frontier_size)
+    {
+#pragma omp parallel for
+      {
+        for (int i = 0; i < frontier_size; i++)
+        {
+          int node = frontier[i];
+          visited[node] = true;
+          for (int j = 0; j < graph_size; j++)
+          {
+
+            if (graph[node * graph_size + j] && !explored[j])
+            {
+#pragma omp critical
+              {
+                next_frontier[next_frontier_size] = j;
+                next_frontier_size++;
+              }
+              explored[j] = true;
+            }
+          }
+        }
+      }
+    }
+    frontier_size = next_frontier_size;
+    next_frontier_size = 0;
+    int *temp = frontier;
+    frontier = next_frontier;
+    next_frontier = temp;
+  }
 }
 
 int main(int argc, char *argv[])
