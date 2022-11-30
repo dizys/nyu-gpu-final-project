@@ -132,11 +132,11 @@ void bfs_graph(bool *graph, int graph_size)
     bfs_kernel<<<dimGrid, dimBlock>>>(d_graph, d_visited, d_explored, d_frontier, d_next_frontier_size, d_next_frontier, *frontier_size, graph_size, stride);
     cudaDeviceSynchronize();
 
-    // cudaMemcpy(frontier_size, d_next_frontier_size, sizeof(int), cudaMemcpyDeviceToHost);
-    // cudaMemcpy(frontier, d_next_frontier, (*frontier_size) * sizeof(int), cudaMemcpyDeviceToHost);
-    *frontier_size = 0;
+    cudaMemcpy(frontier_size, d_next_frontier_size, sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(frontier, d_next_frontier, (*frontier_size) * sizeof(int), cudaMemcpyDeviceToHost);
   }
 
+  cudaFree(d_graph);
   cudaFree(d_visited);
   cudaFree(d_explored);
   cudaFree(d_frontier);
