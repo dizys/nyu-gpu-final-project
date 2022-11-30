@@ -6,7 +6,7 @@ dir_guard=@mkdir -p bin
 
 .PHONY: clean
 
-all: kmeans_seq kmeans_cuda kmeans_openmp bfs_seq bfs_cuda
+all: kmeans_seq kmeans_cuda kmeans_openmp bfs_seq bfs_cuda bfs_openmp
 
 kmeans_seq: src/kmeans/kmeans_seq.cpp
 	$(dir_guard)
@@ -27,6 +27,10 @@ bfs_seq: src/bfs/bfs_seq.cpp
 bfs_cuda: src/bfs/bfs_cuda.cu
 	$(dir_guard)
 	$(NVCC_BIN) -std=$(GPP_STD) -o bin/bfs_cuda src/bfs/bfs_cuda.cu
+
+bfs_openmp: src/bfs/bfs_openmp.cpp
+	$(dir_guard)
+	$(GPP_BIN) -std=$(GPP_STD) -o bin/bfs_openmp -fopenmp -foffload=nvptx-none src/bfs/bfs_openmp.cpp
 
 clean:
 	rm -rf bin
