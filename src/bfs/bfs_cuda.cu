@@ -83,7 +83,7 @@ __global__ void bfs_kernel(bool *graph, bool *visited, bool *explored, int *fron
       {
         explored[j] = true;
         int index = atomicAdd(&next_frontier_size[0], 1);
-        next_frontier[0] = j;
+        next_frontier[index] = j;
       }
     }
   }
