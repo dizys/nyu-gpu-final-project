@@ -1,0 +1,20 @@
+program, dataset, iteration, time
+kmeans_seq, kmeans_10000.txt, 1, 0.077539
+kmeans_seq, kmeans_10000.txt, 2, 0.074086
+kmeans_seq, kmeans_10000.txt, 3, 0.101857
+kmeans_seq, kmeans_10000.txt, 4, 0.064126
+kmeans_seq, kmeans_10000.txt, 5, 0.147441
+kmeans_seq, kmeans_100000.txt, 1, 1.048681
+kmeans_seq, kmeans_100000.txt, 2, 1.813467
+kmeans_seq, kmeans_100000.txt, 3, 1.497998
+kmeans_seq, kmeans_100000.txt, 4, 1.168781
+kmeans_seq, kmeans_100000.txt, 5, 0.665900
+kmeans_seq, kmeans_1000000.txt, 1, 25.695514
+kmeans_seq, kmeans_1000000.txt, 2, 22.806495
+kmeans_seq, kmeans_1000000.txt, 3, 13.066072
+kmeans_seq, kmeans_1000000.txt, 4, 12.954749
+kmeans_seq, kmeans_1000000.txt, 5, 21.999302
+kmeans_seq, kmeans_10000000.txt, 1, 122.223752
+kmeans_seq, kmeans_10000000.txt, 2,
+
+
