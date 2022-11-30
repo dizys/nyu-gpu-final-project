@@ -83,7 +83,7 @@ __global__ void bfs_kernel(bool *graph, bool *visited, bool *explored, int *fron
       if (graph[node * graph_size + j] && !explored[j])
       {
         explored[j] = true;
-        // int index = atomicAdd(next_frontier_size, 1);
+        int index = atomicAdd(&next_frontier_size[0], 1);
         // printf("index: %d, next_frontier_size: %d, j: %d\n", index, *next_frontier_size, j);
         next_frontier[0] = j;
       }
