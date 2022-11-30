@@ -15,6 +15,8 @@ kmeans_seq, kmeans_1000000.txt, 3, 13.066072
 kmeans_seq, kmeans_1000000.txt, 4, 12.954749
 kmeans_seq, kmeans_1000000.txt, 5, 21.999302
 kmeans_seq, kmeans_10000000.txt, 1, 122.223752
-kmeans_seq, kmeans_10000000.txt, 2,
+kmeans_seq, kmeans_10000000.txt, 2, 198.903713
+kmeans_seq, kmeans_10000000.txt, 3, 193.409394
+kmeans_seq, kmeans_10000000.txt, 4,
 
 
