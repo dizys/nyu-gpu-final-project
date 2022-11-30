@@ -94,8 +94,8 @@ void bfs_graph(bool *graph, int graph_size)
 #pragma omp parallel for
       for (int i = 0; i < frontier_size; i++)
       {
-        //         int node = frontier[i];
-        //         visited[node] = true;
+        int node = frontier[i];
+        visited[node] = true;
         //         for (int j = 0; j < graph_size; j++)
         //         {
 
