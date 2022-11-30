@@ -104,23 +104,22 @@ bfs_cuda, graph_g1000_s100.txt, 2, 0.393798
 bfs_cuda, graph_g1000_s100.txt, 3, 0.363758
 bfs_cuda, graph_g1000_s100.txt, 4, 0.374770
 bfs_cuda, graph_g1000_s100.txt, 5, 0.355172
-bfs_cuda, graph_g2000_s100.txt, 1, 0.497681
-bfs_cuda, graph_g2000_s100.txt, 2, 0.322364
-bfs_cuda, graph_g2000_s100.txt, 3, 0.512437
+bfs_cuda, graph_g2000_s100.txt, 1, 0.675401
+bfs_cuda, graph_g2000_s100.txt, 2, 0.582993
+bfs_cuda, graph_g2000_s100.txt, 3, 0.655772
 bfs_cuda, graph_g2000_s100.txt, 4, 0.536624
 bfs_cuda, graph_g2000_s100.txt, 5, 0.618748
-bfs_cuda, graph_g4000_s100.txt, 1,
-bfs_cuda, graph_g4000_s100.txt, 2,
-bfs_cuda, graph_g4000_s100.txt, 3,
-bfs_cuda, graph_g4000_s100.txt, 4,
-bfs_cuda, graph_g4000_s100.txt, 5,
-bfs_cuda, graph_g8000_s100.txt, 1,
-bfs_cuda, graph_g8000_s100.txt, 1, 3.464619
-bfs_cuda, graph_g8000_s100.txt, 2,
-bfs_cuda, graph_g8000_s100.txt, 3,
-bfs_cuda, graph_g8000_s100.txt, 4,
-bfs_cuda, graph_g8000_s100.txt, 5,
-bfs_cuda, graph_g16000_s100.txt, 1,
+bfs_cuda, graph_g4000_s100.txt, 1, 0.992172
+bfs_cuda, graph_g4000_s100.txt, 2, 1.133197
+bfs_cuda, graph_g4000_s100.txt, 3, 1.820158
+bfs_cuda, graph_g4000_s100.txt, 4, 1.243379
+bfs_cuda, graph_g4000_s100.txt, 5, 1.437934
+bfs_cuda, graph_g8000_s100.txt, 1, 4.971338
+bfs_cuda, graph_g8000_s100.txt, 2, 3.464619
+bfs_cuda, graph_g8000_s100.txt, 3, 4.122656
+bfs_cuda, graph_g8000_s100.txt, 4, 2.960516
+bfs_cuda, graph_g8000_s100.txt, 5, 3.700266
+bfs_cuda, graph_g16000_s100.txt, 1, 18.081104
 bfs_cuda, graph_g16000_s100.txt, 2,
 bfs_cuda, graph_g16000_s100.txt, 3,
 bfs_cuda, graph_g16000_s100.txt, 4,
