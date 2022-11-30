@@ -117,6 +117,10 @@ void bfs_graph(bool *graph, int graph_size)
     frontier = next_frontier;
     next_frontier = temp;
   }
+  free(visited);
+  free(explored);
+  free(frontier);
+  free(next_frontier);
 }
 
 int main(int argc, char *argv[])
