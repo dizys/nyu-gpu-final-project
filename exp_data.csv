@@ -49,28 +49,28 @@ kmeans_cuda, kmeans_10000000.txt, 2, 35.380978
 kmeans_cuda, kmeans_10000000.txt, 3, 10.388133
 kmeans_cuda, kmeans_10000000.txt, 4, 39.149960
 kmeans_cuda, kmeans_10000000.txt, 5, 45.114392
-kmeans_openmp, kmeans_10000.txt, 1,
-kmeans_openmp, kmeans_10000.txt, 2,
-kmeans_openmp, kmeans_10000.txt, 3,
-kmeans_openmp, kmeans_10000.txt, 4,
-kmeans_openmp, kmeans_10000.txt, 5,
-kmeans_openmp, kmeans_100000.txt, 1,
-kmeans_openmp, kmeans_100000.txt, 2,
-kmeans_openmp, kmeans_100000.txt, 3,
-kmeans_openmp, kmeans_100000.txt, 4,
-kmeans_openmp, kmeans_100000.txt, 5,
-kmeans_openmp, kmeans_1000000.txt, 1,
-kmeans_openmp, kmeans_1000000.txt, 2,
-kmeans_openmp, kmeans_1000000.txt, 3,
-kmeans_openmp, kmeans_1000000.txt, 4,
-kmeans_openmp, kmeans_1000000.txt, 5,
-kmeans_openmp, kmeans_5000000.txt, 1,
-kmeans_openmp, kmeans_5000000.txt, 2,
-kmeans_openmp, kmeans_5000000.txt, 3,
-kmeans_openmp, kmeans_5000000.txt, 4,
-kmeans_openmp, kmeans_5000000.txt, 5,
-kmeans_openmp, kmeans_10000000.txt, 1,
-kmeans_openmp, kmeans_10000000.txt, 2,
-kmeans_openmp, kmeans_10000000.txt, 3,
-kmeans_openmp, kmeans_10000000.txt, 4,
-kmeans_openmp, kmeans_10000000.txt, 5,
+kmeans_openmp, kmeans_10000.txt, 1, 1.201176
+kmeans_openmp, kmeans_10000.txt, 2, 1.026678
+kmeans_openmp, kmeans_10000.txt, 3, 1.172391
+kmeans_openmp, kmeans_10000.txt, 4, 1.136896
+kmeans_openmp, kmeans_10000.txt, 5, 1.195606
+kmeans_openmp, kmeans_100000.txt, 1, 21.173945
+kmeans_openmp, kmeans_100000.txt, 2, 36.478854
+kmeans_openmp, kmeans_100000.txt, 3, 10.052693
+kmeans_openmp, kmeans_100000.txt, 4, 13.682000
+kmeans_openmp, kmeans_100000.txt, 5, 15.086930
+kmeans_openmp, kmeans_1000000.txt, 1, 221.566813
+kmeans_openmp, kmeans_1000000.txt, 2, 201.766757
+kmeans_openmp, kmeans_1000000.txt, 3, 157.612271
+kmeans_openmp, kmeans_1000000.txt, 4, 302.246494
+kmeans_openmp, kmeans_1000000.txt, 5, 125.393062
+kmeans_openmp, kmeans_5000000.txt, 1, 1211.849566
+kmeans_openmp, kmeans_5000000.txt, 2, 1181.279042
+kmeans_openmp, kmeans_5000000.txt, 3, 896.374993
+kmeans_openmp, kmeans_5000000.txt, 4, 1004.560399
+kmeans_openmp, kmeans_5000000.txt, 5, 1342.926962
+kmeans_openmp, kmeans_10000000.txt, 1, 2417.054699
+kmeans_openmp, kmeans_10000000.txt, 2, 2711.739433
+kmeans_openmp, kmeans_10000000.txt, 3, 1998.873647
+kmeans_openmp, kmeans_10000000.txt, 4, 2815.751647
+kmeans_openmp, kmeans_10000000.txt, 5, 2408.868933
