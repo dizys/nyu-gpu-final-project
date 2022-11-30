@@ -137,8 +137,8 @@ bfs_openmp, graph_g2000_s100.txt, 5, 12.983511
 bfs_openmp, graph_g4000_s100.txt, 1, 49.379445
 bfs_openmp, graph_g4000_s100.txt, 2, 49.619426
 bfs_openmp, graph_g4000_s100.txt, 3, 49.445978
-bfs_openmp, graph_g4000_s100.txt, 4,
-bfs_openmp, graph_g4000_s100.txt, 5,
+bfs_openmp, graph_g4000_s100.txt, 4, 49.567338
+bfs_openmp, graph_g4000_s100.txt, 5, 49.325505
 bfs_openmp, graph_g8000_s100.txt, 1, 193.974758
 bfs_openmp, graph_g8000_s100.txt, 2,
 bfs_openmp, graph_g8000_s100.txt, 3,
