@@ -14,9 +14,63 @@ kmeans_seq, kmeans_1000000.txt, 2, 22.806495
 kmeans_seq, kmeans_1000000.txt, 3, 13.066072
 kmeans_seq, kmeans_1000000.txt, 4, 12.954749
 kmeans_seq, kmeans_1000000.txt, 5, 21.999302
+kmeans_seq, kmeans_5000000.txt, 1, 74.831526
+kmeans_seq, kmeans_5000000.txt, 2, 122.009694
+kmeans_seq, kmeans_5000000.txt, 3, 108.484730
+kmeans_seq, kmeans_5000000.txt, 4, 92.749387
+kmeans_seq, kmeans_5000000.txt, 5, 69.082412
 kmeans_seq, kmeans_10000000.txt, 1, 122.223752
 kmeans_seq, kmeans_10000000.txt, 2, 198.903713
 kmeans_seq, kmeans_10000000.txt, 3, 193.409394
-kmeans_seq, kmeans_10000000.txt, 4,
-
-
+kmeans_seq, kmeans_10000000.txt, 4, 162.069724
+kmeans_seq, kmeans_10000000.txt, 5, 135.434792
+kmeans_cuda, kmeans_10000.txt, 1, 0.615982
+kmeans_cuda, kmeans_10000.txt, 2, 0.273180
+kmeans_cuda, kmeans_10000.txt, 3, 0.251104
+kmeans_cuda, kmeans_10000.txt, 4, 0.282564
+kmeans_cuda, kmeans_10000.txt, 5, 0.242737
+kmeans_cuda, kmeans_100000.txt, 1, 0.270459
+kmeans_cuda, kmeans_100000.txt, 2, 0.203054
+kmeans_cuda, kmeans_100000.txt, 3, 0.284807
+kmeans_cuda, kmeans_100000.txt, 4, 0.337997
+kmeans_cuda, kmeans_100000.txt, 5, 0.252619
+kmeans_cuda, kmeans_1000000.txt, 1, 0.469009
+kmeans_cuda, kmeans_1000000.txt, 2, 0.385140
+kmeans_cuda, kmeans_1000000.txt, 3, 3.150591
+kmeans_cuda, kmeans_1000000.txt, 4, 0.526294
+kmeans_cuda, kmeans_1000000.txt, 5, 6.523564
+kmeans_cuda, kmeans_5000000.txt, 1, 9.432029
+kmeans_cuda, kmeans_5000000.txt, 2, 16.715236
+kmeans_cuda, kmeans_5000000.txt, 3, 5.553699
+kmeans_cuda, kmeans_5000000.txt, 4, 20.245511
+kmeans_cuda, kmeans_5000000.txt, 5, 14.799347
+kmeans_cuda, kmeans_10000000.txt, 1, 18.540615
+kmeans_cuda, kmeans_10000000.txt, 2, 35.380978
+kmeans_cuda, kmeans_10000000.txt, 3, 10.388133
+kmeans_cuda, kmeans_10000000.txt, 4, 39.149960
+kmeans_cuda, kmeans_10000000.txt, 5, 45.114392
+kmeans_openmp, kmeans_10000.txt, 1,
+kmeans_openmp, kmeans_10000.txt, 2,
+kmeans_openmp, kmeans_10000.txt, 3,
+kmeans_openmp, kmeans_10000.txt, 4,
+kmeans_openmp, kmeans_10000.txt, 5,
+kmeans_openmp, kmeans_100000.txt, 1,
+kmeans_openmp, kmeans_100000.txt, 2,
+kmeans_openmp, kmeans_100000.txt, 3,
+kmeans_openmp, kmeans_100000.txt, 4,
+kmeans_openmp, kmeans_100000.txt, 5,
+kmeans_openmp, kmeans_1000000.txt, 1,
+kmeans_openmp, kmeans_1000000.txt, 2,
+kmeans_openmp, kmeans_1000000.txt, 3,
+kmeans_openmp, kmeans_1000000.txt, 4,
+kmeans_openmp, kmeans_1000000.txt, 5,
+kmeans_openmp, kmeans_5000000.txt, 1,
+kmeans_openmp, kmeans_5000000.txt, 2,
+kmeans_openmp, kmeans_5000000.txt, 3,
+kmeans_openmp, kmeans_5000000.txt, 4,
+kmeans_openmp, kmeans_5000000.txt, 5,
+kmeans_openmp, kmeans_10000000.txt, 1,
+kmeans_openmp, kmeans_10000000.txt, 2,
+kmeans_openmp, kmeans_10000000.txt, 3,
+kmeans_openmp, kmeans_10000000.txt, 4,
+kmeans_openmp, kmeans_10000000.txt, 5,
