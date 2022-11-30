@@ -74,3 +74,23 @@ kmeans_openmp, kmeans_10000000.txt, 2, 2711.739433
 kmeans_openmp, kmeans_10000000.txt, 3, 1998.873647
 kmeans_openmp, kmeans_10000000.txt, 4, 2815.751647
 kmeans_openmp, kmeans_10000000.txt, 5, 2408.868933
+bfs_seq, graph_g1000_s100.txt, 1, 0.321591
+bfs_seq, graph_g1000_s100.txt, 2, 0.240212
+bfs_seq, graph_g1000_s100.txt, 3, 0.240152
+bfs_seq, graph_g1000_s100.txt, 4, 0.239966
+bfs_seq, graph_g1000_s100.txt, 5, 0.239739
+bfs_seq, graph_g2000_s1000.txt, 1, 0.913885
+bfs_seq, graph_g2000_s1000.txt, 2, 0.966405
+bfs_seq, graph_g2000_s1000.txt, 3, 0.965543
+bfs_seq, graph_g2000_s1000.txt, 4, 0.969780
+bfs_seq, graph_g2000_s1000.txt, 5, 1.062817
+bfs_seq, graph_g4000_s1000.txt, 1, 3.676341
+bfs_seq, graph_g4000_s1000.txt, 2, 3.599552
+bfs_seq, graph_g4000_s1000.txt, 3, 3.600055
+bfs_seq, graph_g4000_s1000.txt, 4, 3.602718
+bfs_seq, graph_g4000_s1000.txt, 5, 3.601858
+bfs_seq, graph_g8000_s1000.txt, 1, 13.444764
+bfs_cuda, graph_g8000_s100.txt, 1, 3.464619
+bfs_openmp, graph_g8000_s1000.txt, 1, 13.444764
+
+
