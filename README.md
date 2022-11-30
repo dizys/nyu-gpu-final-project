@@ -48,6 +48,11 @@ make GPP_BIN=$MY_GCC_PATH/bin/g++
 
 ```bash
 mkdir -p /tmp/$(whoami)/data
+
+# KMeans datasets
+wget -O /tmp/$(whoami)/data/kmeans_10000.txt https://media.githubusercontent.com/media/nyu-multicore/k-means/main/data/dataset-10000.txt
+
+# BFS datasets
 wget -O /tmp/$(whoami)/data/graph_g1000_s100.txt https://github.com/nyu-multicore/cims-gpu/releases/download/bfs-data/graph_g1000_s100.txt
 wget -O /tmp/$(whoami)/data/graph_g10000_s100.txt https://github.com/nyu-multicore/cims-gpu/releases/download/bfs-data/graph_g10000_s100.txt
 ```
