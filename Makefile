@@ -60,6 +60,5 @@ generategraph: src/warshall/generategraph.cpp
 	$(dir_guard)
 	$(MY_GCC_PATH)/bin/g++ -std=c++11 -o bin/generategraph src/warshall/generategraph.cpp
 
-
 clean:
 	rm -rf bin
