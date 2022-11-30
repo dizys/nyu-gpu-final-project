@@ -92,23 +92,21 @@ void bfs_graph(bool *graph, int graph_size)
                                                                 : explored [0:graph_size], visited [0:graph_size], next_frontier [0:graph_size], next_frontier_size)
     {
 #pragma omp parallel for
+      for (int i = 0; i < frontier_size; i++)
       {
-        for (int i = 0; i < frontier_size; i++)
+        int node = frontier[i];
+        visited[node] = true;
+        for (int j = 0; j < graph_size; j++)
         {
-          int node = frontier[i];
-          visited[node] = true;
-          for (int j = 0; j < graph_size; j++)
-          {
 
-            if (graph[node * graph_size + j] && !explored[j])
-            {
+          if (graph[node * graph_size + j] && !explored[j])
+          {
 #pragma omp critical
-              {
-                next_frontier[next_frontier_size] = j;
-                next_frontier_size++;
-              }
-              explored[j] = true;
+            {
+              next_frontier[next_frontier_size] = j;
+              next_frontier_size++;
             }
+            explored[j] = true;
           }
         }
       }
