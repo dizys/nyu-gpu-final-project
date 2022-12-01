@@ -144,8 +144,8 @@ bfs_openmp, graph_g8000_s100.txt, 2, 193.469023
 bfs_openmp, graph_g8000_s100.txt, 3, 197.322697
 bfs_openmp, graph_g8000_s100.txt, 4, 191.654907
 bfs_openmp, graph_g8000_s100.txt, 5, 192.809601
-bfs_openmp, graph_g16000_s100.txt, 1,
-bfs_openmp, graph_g16000_s100.txt, 2,
-bfs_openmp, graph_g16000_s100.txt, 3,
-bfs_openmp, graph_g16000_s100.txt, 4,
-bfs_openmp, graph_g16000_s100.txt, 5,
+bfs_openmp, graph_g16000_s100.txt, 1, 777.150308
+bfs_openmp, graph_g16000_s100.txt, 2, 777.313505
+bfs_openmp, graph_g16000_s100.txt, 3, 778.533427
+bfs_openmp, graph_g16000_s100.txt, 4, 774.905319
+bfs_openmp, graph_g16000_s100.txt, 5, 775.767993
