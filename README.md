@@ -6,7 +6,7 @@ Comparing CUDA to OpenMP on GPUs
 
 ### Setup CIMS GPU machines
 
-We experimented on `cuda5.cims.nyu.edu`.
+We experimented on `cuda3.cims.nyu.edu`.
 
 1. Load the CUDA module:
 
