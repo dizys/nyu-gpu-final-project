@@ -55,7 +55,7 @@ int main(int argc, char * argv[]){
 
     for(int i=0; i<n; i++)
     {
-        std::cout<<i<<std::endl;
+        // std::cout<<i<<std::endl;
         Warshall_kernel<<< BLOCKS_NUM, BLOCK_SIZE >>>(n, i, graph_gpu);
         // Warshall_kernel<<< grid, block >>>(n, i, graph_gpu);
         cudaDeviceSynchronize();
