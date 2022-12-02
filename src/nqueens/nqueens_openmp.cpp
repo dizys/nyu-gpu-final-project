@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
 	#pragma omp target teams num_teams(512) map(tofrom:result) map(to:queen_rows)
   	{
-		#pragma omp distribute parallel for 
+		#pragma omp distribute parallel for
 		for (long long index = 0; index < total; index++)
 		{
 			long long  current = index;
@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
 			}
 			if (!hasError)
 			{
+				#pragma omp critical
 				result++;
 			}
 		}

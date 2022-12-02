@@ -3,7 +3,9 @@
 #include <time.h>
 #include <cuda.h>
 
-__global__ void solution(long long total, int n, bool *results, long long* queen_rows);
+__global__ void solution(long long total, long long threads, int n, int *count, long long* queen_rows);
+
+__device__ void process(long long index, int n, int *count, long long* queen_rows);
 
 int main(int argc, char *argv[]){
 
@@ -19,72 +21,69 @@ int main(int argc, char *argv[]){
     
 	long long *queen_rows_cpu;
 	long long *queen_rows_gpu;
-	bool *results_cpu;
-	bool *results_gpu;
+	int *count_cpu;
+	int *count_gpu;
+	
 	
     size_t space = n*sizeof(long long);
-	size_t space2 = total*sizeof(bool);
 
     if(!(queen_rows_cpu = (long long *)malloc(space)))
 	{
 	   printf("Malloc error\n");
 	   exit(1);
 	}
-	if( !(results_cpu = (bool *)malloc(pow(n,n)*sizeof(bool))) )
+	if( !(count_cpu = (int *)malloc(sizeof(int))) )
 	{
 	   printf("Malloc error\n");
 	   exit(1);
 	}
+	count_cpu[0] = 0;
 
 	queen_rows_cpu[0] = 1;
 	for(int i = 1; i < n; i++){
 		queen_rows_cpu[i] = queen_rows_cpu[i-1]*10;
 	}
 
-	for(long long i = 0; i < total; i++){
-		results_cpu[i] = false;
-	}
-
     start = clock();
     cudaMallocHost(&queen_rows_gpu, space);
-	cudaMallocHost(&results_gpu, space2);
+	cudaMallocHost(&count_gpu, sizeof(int));
+	
 
     cudaMemcpy(queen_rows_gpu, queen_rows_cpu, space, cudaMemcpyHostToDevice);
-	cudaMemcpy(results_gpu, results_cpu, space2, cudaMemcpyHostToDevice);
+	cudaMemcpy(count_gpu, count_cpu, sizeof(int), cudaMemcpyHostToDevice);
 
-	
-	long long BLOCK_SIZE = 512;
-	long long BLOCKS_NUM = total/BLOCK_SIZE+1;
+	dim3 grid(8, 1, 1);
+  	dim3 block(500, 1, 1);
+	long long threads = ceil((total) / (long long)(grid.x * block.x));
 
-	solution<<< BLOCKS_NUM, BLOCK_SIZE >>>(total, n, results_gpu, queen_rows_gpu);
+	solution<<< grid, block >>>(total, threads, n, count_gpu, queen_rows_gpu);
 
-	cudaMemcpy(results_cpu, results_gpu, space2, cudaMemcpyDeviceToHost);
+	cudaMemcpy(count_cpu, count_gpu, sizeof(int), cudaMemcpyDeviceToHost);
 
-	cudaFreeHost(results_gpu); 
 	cudaFreeHost(queen_rows_gpu); 
+	cudaFreeHost(count_gpu); 
 	
 	end = clock();
 	printf("Time used = %g sec\n", (double)(end - start) / CLOCKS_PER_SEC);
 
-	int result = 0;
-	for(long long i = 0; i < total; i++){
-		if(results_cpu[i]){
-			result++;
-		}
-	}
-    printf("Result= %d\n", result);
+	printf("Result= %d\n", count_cpu[0]);
 		
 	free(queen_rows_cpu); 
-	free(results_cpu); 
+	free(count_cpu); 
 
 	return 0;
 }
 
-__global__ void solution(long long total, int n, bool *results, long long* queen_rows){
-	long long index = blockDim.x * blockIdx.x + threadIdx.x;
-	if(index >= total){
-		return;
+__global__ void solution(long long total, long long threads, int n, int *count, long long* queen_rows){
+	long long i = blockDim.x * blockIdx.x + threadIdx.x;
+
+	for (long long index = i * threads; index < (i + 1) * threads && index < total; index++)
+  	{
+		process(index, n, count, queen_rows);
 	}
+}
+
+__device__ void process(long long index, int n, int *count, long long* queen_rows){
 	long long  current = index;
 	long long  board = 0;
 	for (long long i = 0; i < n; i++)
@@ -111,11 +110,9 @@ __global__ void solution(long long total, int n, bool *results, long long* queen
 			break;
 		}
 	}
+
 	if (!hasError)
 	{
-		results[index] = true;
-	}else{
-		results[index] = false;
+		atomicAdd(&count[0], 1);
 	}
-    
 }
