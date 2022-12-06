@@ -1,6 +1,6 @@
 # nyu-gpu-final-project
 
-Comparing CUDA to OpenMP on GPUs
+Comparing CUDA to OpenMP on GPUs with K-Means, BFS, Floyd-Warshall, and N-Queens algorithms.
 
 ## Getting Started
 
@@ -65,6 +65,8 @@ wget -O /tmp/$(whoami)/data/graph_g16000_s100.txt https://github.com/nyu-multico
 
 # Floyd-Warshall datasets
 cd bin && ./generategraph <SIZE> && cd .. # generate dataset <INPUT_FILE_SIZE>.txt
+
+# N-Queens datasets: N-Queens programs don't need any extra dataset files to run, it will generate the dataset on the fly
 ```
 
 ## Run the programs
