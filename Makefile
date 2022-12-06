@@ -6,7 +6,7 @@ dir_guard=@mkdir -p bin
 
 .PHONY: clean
 
-all: kmeans_seq kmeans_cuda kmeans_openmp bfs_seq bfs_cuda bfs_openmp
+all: kmeans_seq kmeans_cuda kmeans_openmp bfs_seq bfs_cuda bfs_openmp nqueens_seq nqueens_openmp nqueens_cuda warshall_seq warshall_openmp warshall_cuda generategraph
 
 kmeans_seq: src/kmeans/kmeans_seq.cpp
 	$(dir_guard)
