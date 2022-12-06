@@ -74,13 +74,13 @@ cd bin
 
 # KMeans
 ./kmeans_seq /tmp/$(whoami)/data/kmeans_<SIZE>.txt <K>           # run the sequential version
-./kmeans_cuda /tmp/$(whoami)/data/data/kmeans_<SIZE>.txt <K>     # run the CUDA version
-./kmeans_openmp /tmp/$(whoami)/data/data/kmeans_<SIZE>.txt <K>   # run the OpenMP version
+./kmeans_cuda /tmp/$(whoami)/data/kmeans_<SIZE>.txt <K>     # run the CUDA version
+./kmeans_openmp /tmp/$(whoami)/data/kmeans_<SIZE>.txt <K>   # run the OpenMP version
 
 # BFS
 ./bfs_seq /tmp/$(whoami)/data/graph_g<GRAPH_SIZE>_s<SAMPLE_SIZE>.txt      # run the sequential version
 ./bfs_cuda /tmp/$(whoami)/data/graph_g<GRAPH_SIZE>_s<SAMPLE_SIZE>.txt     # run the CUDA version
-./bfs_openmp /tmp/$(whoami)/data//graph_g<GRAPH_SIZE>_s<SAMPLE_SIZE>.txt  # run the OpenMP version
+./bfs_openmp /tmp/$(whoami)/data/graph_g<GRAPH_SIZE>_s<SAMPLE_SIZE>.txt  # run the OpenMP version
 
 # Floyd-Warshall
 ./warshall_seq <INPUT_FILE_SIZE>.txt      # run the sequential version
