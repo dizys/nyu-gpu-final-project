@@ -66,7 +66,7 @@ wget -O /tmp/$(whoami)/data/graph_g16000_s100.txt https://github.com/nyu-multico
 # Floyd-Warshall datasets
 cd bin && ./generategraph <SIZE> && cd .. # generate dataset <INPUT_FILE_SIZE>.txt
 
-# N-Queens datasets: N-Queens programs don't need any extra dataset files to run, it will generate the dataset on the fly
+# N-Queens: N-Queens programs don't need any extra dataset files to run
 ```
 
 ## Run the programs
