@@ -87,11 +87,11 @@ void bfs_graph(bool *graph, int graph_size)
   int next_frontier_size = 0;
   while (frontier_size > 0)
   {
-#pragma omp target map(to                                                                                                  \
-                       : graph [0:graph_size * graph_size], frontier_size, frontier [0:graph_size], graph_size) map(tofrom \
-                                                                                                                    : explored [0:graph_size], visited [0:graph_size], next_frontier [0:graph_size], next_frontier_size)
+#pragma omp target teams num_teams(512) map(to                                                                                                  \
+                                            : graph [0:graph_size * graph_size], frontier_size, frontier [0:graph_size], graph_size) map(tofrom \
+                                                                                                                                         : explored [0:graph_size], visited [0:graph_size], next_frontier [0:graph_size], next_frontier_size)
     {
-#pragma omp parallel for
+#pragma omp distribute parallel for
       for (int i = 0; i < frontier_size; i++)
       {
         int node = frontier[i];

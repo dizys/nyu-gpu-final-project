@@ -58,11 +58,12 @@ bool assign_clusters(unsigned vector_size, float *vectors, float *centroids, uns
     {
         cluster_sizes[i] = 0;
     }
-#pragma omp target map(to                                                                 \
-                       : vectors [0:vector_size * DIM], centroids [0:K * DIM]) map(tofrom \
-                                                                                   : changed, cluster_sizes [0:K], clusters [0:vector_size])
+
+#pragma omp target teams num_teams(512) map(to                                                                 \
+                                            : vectors [0:vector_size * DIM], centroids [0:K * DIM]) map(tofrom \
+                                                                                                        : changed, cluster_sizes [0:K], clusters [0:vector_size])
     {
-#pragma omp parallel for
+#pragma omp distribute parallel for
         for (unsigned i = 0; i < vector_size; i++)
         {
             float min_distance = FLT_MAX;
