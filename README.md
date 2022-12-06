@@ -62,4 +62,15 @@ wget -O /tmp/$(whoami)/data/graph_g2000_s100.txt https://github.com/nyu-multicor
 wget -O /tmp/$(whoami)/data/graph_g4000_s100.txt https://github.com/nyu-multicore/cims-gpu/releases/download/bfs-data/graph_g4000_s100.txt
 wget -O /tmp/$(whoami)/data/graph_g8000_s100.txt https://github.com/nyu-multicore/cims-gpu/releases/download/bfs-data/graph_g8000_s100.txt
 wget -O /tmp/$(whoami)/data/graph_g16000_s100.txt https://github.com/nyu-multicore/cims-gpu/releases/download/bfs-data/graph_g16000_s100.txt
+
+# Floyd-Warshall datasets
+./generategraph size                  //generate dataset inputfilesize.txt
+./warshall_cuda inputfilesize.txt     //run the CUDA version
+./warshall_openmp inputfilesize.txt   //run the OpenMP version
+./warshall_seq inputfilesize.txt      //run the sequential version
+
+# N-Queens
+./nqueens_cuda size     //run the CUDA version
+./nqueens_openmp size   //run the OpenMP version
+./nqueens_seq size      //run the sequential version
 ```
