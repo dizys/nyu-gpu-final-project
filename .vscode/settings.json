@@ -7,7 +7,17 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-  "cSpell.words": ["buildx", "CIMS", "CUDA", "multicore", "heatdist"],
+  "cSpell.words": [
+    "buildx",
+    "CIMS",
+    "CUDA",
+    "generategraph",
+    "heatdist",
+    "multicore",
+    "nqueens",
+    "openmp",
+    "Warshall"
+  ],
   "[c]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
   },

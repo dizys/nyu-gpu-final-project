@@ -64,13 +64,31 @@ wget -O /tmp/$(whoami)/data/graph_g8000_s100.txt https://github.com/nyu-multicor
 wget -O /tmp/$(whoami)/data/graph_g16000_s100.txt https://github.com/nyu-multicore/cims-gpu/releases/download/bfs-data/graph_g16000_s100.txt
 
 # Floyd-Warshall datasets
-./generategraph size                  //generate dataset inputfilesize.txt
-./warshall_cuda inputfilesize.txt     //run the CUDA version
-./warshall_openmp inputfilesize.txt   //run the OpenMP version
-./warshall_seq inputfilesize.txt      //run the sequential version
+cd bin && ./generategraph <SIZE> && cd .. # generate dataset <INPUT_FILE_SIZE>.txt
+```
+
+### Run the programs
+
+```bash
+cd bin
+
+# KMeans
+./kmeans_seq ../data/kmeans_<SIZE>.txt <K>      # run the sequential version
+./kmeans_cuda ../data/kmeans_<SIZE>.txt <K>     # run the CUDA version
+./kmeans_openmp ../data/kmeans_<SIZE>.txt <K>   # run the OpenMP version
+
+# Floyd-Warshall
+./warshall_seq <INPUT_FILE_SIZE>.txt      # run the sequential version
+./warshall_cuda <INPUT_FILE_SIZE>.txt     # run the CUDA version
+./warshall_openmp <INPUT_FILE_SIZE>.txt   # run the OpenMP version
+
+# BFS
+./bfs_seq ../data/graph_g<GRAPH_SIZE>_s<SAMPLE_SIZE>.txt     # run the sequential version
+./bfs_cuda ../data/graph_g<GRAPH_SIZE>_s<SAMPLE_SIZE>.txt    # run the CUDA version
+./bfs_openmp ../data/graph_g<GRAPH_SIZE>_s<SAMPLE_SIZE>.txt  # run the OpenMP version
 
 # N-Queens
-./nqueens_cuda size     //run the CUDA version
-./nqueens_openmp size   //run the OpenMP version
-./nqueens_seq size      //run the sequential version
+./nqueens_seq <SIZE>      # run the sequential version
+./nqueens_cuda <SIZE>     # run the CUDA version
+./nqueens_openmp <SIZE>   # run the OpenMP version
 ```
