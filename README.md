@@ -67,7 +67,7 @@ wget -O /tmp/$(whoami)/data/graph_g16000_s100.txt https://github.com/nyu-multico
 cd bin && ./generategraph <SIZE> && cd .. # generate dataset <INPUT_FILE_SIZE>.txt
 ```
 
-### Run the programs
+## Run the programs
 
 ```bash
 cd bin
