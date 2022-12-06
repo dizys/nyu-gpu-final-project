@@ -95,6 +95,12 @@ cd bin
 ./nqueens_openmp <SIZE>   # run the OpenMP version
 ```
 
+## Experiment Raw Results
+
+We experimented on `cuda3.cims.nyu.edu`. The raw results of how long each program takes to run on each dataset file can be found in the [exp_data.csv] file.
+
+Every experiment setting is run 5 times and should be averaged to get the final result.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
