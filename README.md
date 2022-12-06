@@ -92,3 +92,7 @@ cd bin
 ./nqueens_cuda <SIZE>     # run the CUDA version
 ./nqueens_openmp <SIZE>   # run the OpenMP version
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
