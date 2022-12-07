@@ -1,5 +1,5 @@
 program,dataset,mem
-kmeans_cuda,kmeans_10000.txt,51MiB
+kmeans_cuda,kmeans_10000.txt,303MiB
 kmeans_cuda,kmeans_100000.txt,305MiB
 kmeans_cuda,kmeans_1000000.txt,321MiB
 kmeans_cuda,kmeans_5000000.txt,383MiB
@@ -19,4 +19,13 @@ bfs_openmp,graph_g2000_s100.txt,635MiB
 bfs_openmp,graph_g4000_s100.txt,647MiB
 bfs_openmp,graph_g8000_s100.txt,693MiB
 bfs_openmp,graph_g16000_s100.txt,877MiB
-
+nqueens_cuda,6,303MiB
+nqueens_cuda,7,303MiB
+nqueens_cuda,8,303MiB
+nqueens_cuda,9,303MiB
+nqueens_cuda,10,303MiB
+nqueens_openmp,6,303MiB
+nqueens_openmp,7,379Mi1B
+nqueens_openmp,8,633MiB
+nqueens_openmp,9,633MiB
+nqueens_openmp,10,633MiB
