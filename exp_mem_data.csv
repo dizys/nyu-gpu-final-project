@@ -29,3 +29,13 @@ nqueens_openmp,7,379Mi1B
 nqueens_openmp,8,633MiB
 nqueens_openmp,9,633MiB
 nqueens_openmp,10,633MiB
+warshall_cuda,inputfile500.txt,305MiB
+warshall_cuda,inputfile1000.txt,311MiB
+warshall_cuda,inputfile2000.txt,335MiB
+warshall_cuda,inputfile4000.txt,427MiB
+warshall_cuda,inputfile8000.txt,793MiB
+warshall_openmp,inputfile500.txt,633MiB
+warshall_openmp,inputfile1000.txt,639MiB
+warshall_openmp,inputfile2000.txt,663MiB
+warshall_openmp,inputfile4000.txt,755MiB
+warshall_openmp,inputfile8000.txt,1121MiB
