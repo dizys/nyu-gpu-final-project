@@ -1,4 +1,4 @@
-program, dataset, iteration, time
+program,dataset,iteration,time
 kmeans_seq,kmeans_10000.txt,1,0.077539
 kmeans_seq,kmeans_10000.txt,2,0.074086
 kmeans_seq,kmeans_10000.txt,3,0.101857
