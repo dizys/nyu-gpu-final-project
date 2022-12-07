@@ -1,6 +1,7 @@
 # junk
 .DS_Store
 .bak
+.ipynb_checkpoints
 
 # debug
 *.log
@@ -8,3 +9,4 @@
 
 # artifacts
 /bin
+/report.md

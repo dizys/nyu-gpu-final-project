@@ -10,13 +10,20 @@
   "cSpell.words": [
     "buildx",
     "CIMS",
+    "cuctx",
     "CUDA",
     "generategraph",
     "heatdist",
+    "Malloc",
+    "Memcpy",
     "multicore",
     "nqueens",
+    "nvcc",
     "openmp",
-    "Warshall"
+    "parallelizable",
+    "parallelly",
+    "Warshall",
+    "Xeon"
   ],
   "[c]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
