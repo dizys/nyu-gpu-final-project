@@ -4,11 +4,11 @@ bfs_cuda,graph_g16000_s100.txt,15.641312
 bfs_cuda,graph_g2000_s100.txt,0.6139076
 bfs_cuda,graph_g4000_s100.txt,1.3253679999999999
 bfs_cuda,graph_g8000_s100.txt,3.843879
-bfs_openmp,graph_g1000_s100.txt,3.6579996
-bfs_openmp,graph_g16000_s100.txt,776.7341104
-bfs_openmp,graph_g2000_s100.txt,13.0689532
-bfs_openmp,graph_g4000_s100.txt,49.4675384
-bfs_openmp,graph_g8000_s100.txt,193.8461972
+bfs_openmp,graph_g1000_s100.txt,2.9290019999999997
+bfs_openmp,graph_g16000_s100.txt,51.701648399999996
+bfs_openmp,graph_g2000_s100.txt,4.9471282
+bfs_openmp,graph_g4000_s100.txt,10.2943966
+bfs_openmp,graph_g8000_s100.txt,20.245935199999998
 bfs_seq,graph_g1000_s100.txt,0.256332
 bfs_seq,graph_g16000_s100.txt,56.7698802
 bfs_seq,graph_g2000_s100.txt,0.9756859999999999
