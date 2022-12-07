@@ -1,0 +1,6 @@
+program,dataset,mem
+bfs_openmp,graph_g1000_s100.txt,633MiB
+bfs_openmp,graph_g2000_s100.txt,635MiB
+bfs_openmp,graph_g4000_s100.txt,647MiB
+bfs_openmp,graph_g8000_s100.txt,693MiB
+bfs_openmp,graph_g16000_s100.txt,877MiB
